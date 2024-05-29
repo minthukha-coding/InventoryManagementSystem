@@ -13,27 +13,27 @@ namespace InventoryManagementSystemApi.Features.InventoryItem
         {
             _appDbContext = appDbContext;
         }
-        public async Task<InventoryItemListRespnseModel> GetListItem()
-        {
-            var model = new InventoryItemListRespnseModel();
-            try
-            {
-                var items = await _appDbContext
-                    .TblInventoryItems
-                    .AsNoTracking()
-                    .ToListAsync();
-                model.DataLst = items
-                    .Select(x => x.Change())
-                    .ToList();
-                model.MessageResponse = new MessageResponseModel(true,
-                    EnumStatus.Success.ToString());
-            }
-            catch (Exception ex)
-            {
-                model.DataLst = new List<InventoryItemModel>();
-                model.MessageResponse = new MessageResponseModel(false, ex.Message);
-            }
-            return model;
-        }
+        //public async Task<InventoryItemListRespnseModel> GetListItem()
+        //{
+        //    var model = new InventoryItemListRespnseModel();
+        //    try
+        //    {
+        //        var items = await _appDbContext
+        //            .TblInventoryItems
+        //            .AsNoTracking()
+        //            .ToListAsync();
+        //        model.DataLst = items
+        //            .Select(x => x.Change())
+        //            .ToList();
+        //        model.MessageResponse = new MessageResponseModel(true,
+        //            EnumStatus.Success.ToString());
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        model.DataLst = new List<InventoryItemModel>();
+        //        model.MessageResponse = new MessageResponseModel(false, ex.Message);
+        //    }
+        //    return model;
+        //}
     }
 }

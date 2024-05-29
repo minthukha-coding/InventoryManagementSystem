@@ -10,10 +10,10 @@ namespace InventoryManagementSystemApi.Features.InventoryItem
         {
             _dl_inventoryItem = dl_inventoryItem;
         }
-        public async Task<InventoryItemListRespnseModel> GetAllItem()
-        {
-            var response = await _dl_inventoryItem.GetListItem();
-            return response;
-        }
+        //public async Task<InventoryItemListRespnseModel> GetAllItem()
+        //{
+        //    var response = await _dl_inventoryItem.GetListItem();
+        //    return response;
+        //}
     }
 }

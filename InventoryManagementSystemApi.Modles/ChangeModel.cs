@@ -13,18 +13,18 @@ namespace InventoryManagementSystemApi.Modles
     {
         #region InventoryItem
 
-        public static InventoryItemModel Change(this TblInventoryItem dataModel)
-        {
-            var item = new InventoryItemModel
-            {
-                ItemId = dataModel.ItemId,
-                ItemName = dataModel.ItemName,
-                ItemCategory = dataModel.ItemCategory,
-                ItemAmount = dataModel.ItemAmount,
-                ItemPrice = dataModel.ItemPrice,
-            };
-            return item;
-        }
+        //public static InventoryItemModel Change(this TblInventoryItem dataModel)
+        //{
+        //    var item = new InventoryItemModel
+        //    {
+        //        ItemId = dataModel.ItemId,
+        //        ItemName = dataModel.ItemName,
+        //        ItemCategory = dataModel.ItemCategory,
+        //        ItemAmount = dataModel.ItemAmount,
+        //        ItemPrice = dataModel.ItemPrice,
+        //    };
+        //    return item;
+        //}
 
         #endregion
     }
