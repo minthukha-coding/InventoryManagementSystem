@@ -15,7 +15,7 @@ public partial class AppDbContext : DbContext
     {
     }
 
-    public virtual DbSet<TblCatagory> TblCatagories { get; set; }
+    public virtual DbSet<TblCategory> TblCategories { get; set; }
 
     public virtual DbSet<TblItem> TblItems { get; set; }
 
@@ -27,16 +27,16 @@ public partial class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<TblCatagory>(entity =>
+        modelBuilder.Entity<TblCategory>(entity =>
         {
             entity
                 .HasNoKey()
-                .ToTable("Tbl_Catagory");
+                .ToTable("Tbl_Category");
 
-            entity.Property(e => e.CatagoryId)
+            entity.Property(e => e.CategoryId)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.CatagoryName)
+            entity.Property(e => e.CategoryName)
                 .HasMaxLength(50)
                 .IsUnicode(false);
         });
@@ -47,7 +47,7 @@ public partial class AppDbContext : DbContext
                 .HasNoKey()
                 .ToTable("Tbl_Item");
 
-            entity.Property(e => e.ItemCatagory)
+            entity.Property(e => e.ItemCategory)
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.ItemName)

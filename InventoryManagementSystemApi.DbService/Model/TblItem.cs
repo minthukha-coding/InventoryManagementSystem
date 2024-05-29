@@ -7,7 +7,7 @@ public partial class TblItem
 {
     public string ItemName { get; set; } = null!;
 
-    public string ItemCatagory { get; set; } = null!;
+    public string ItemCategory { get; set; } = null!;
 
     public decimal ItemPrice { get; set; }
 }
