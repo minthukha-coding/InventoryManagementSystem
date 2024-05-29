@@ -15,9 +15,11 @@ public partial class AppDbContext : DbContext
     {
     }
 
-    public virtual DbSet<TblInventoryItem> TblInventoryItems { get; set; }
+    public virtual DbSet<TblCatagory> TblCatagories { get; set; }
 
-    public virtual DbSet<TblInvetoryOrder> TblInvetoryOrders { get; set; }
+    public virtual DbSet<TblItem> TblItems { get; set; }
+
+    public virtual DbSet<TblOrder> TblOrders { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -25,16 +27,27 @@ public partial class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<TblInventoryItem>(entity =>
+        modelBuilder.Entity<TblCatagory>(entity =>
         {
-            entity.HasKey(e => e.ItemId);
+            entity
+                .HasNoKey()
+                .ToTable("Tbl_Catagory");
 
-            entity.ToTable("Tbl_InventoryItem");
-
-            entity.Property(e => e.ItemAmount)
+            entity.Property(e => e.CatagoryId)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.ItemCategory)
+            entity.Property(e => e.CatagoryName)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<TblItem>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("Tbl_Item");
+
+            entity.Property(e => e.ItemCatagory)
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.ItemName)
@@ -43,17 +56,20 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.ItemPrice).HasColumnType("decimal(18, 2)");
         });
 
-        modelBuilder.Entity<TblInvetoryOrder>(entity =>
+        modelBuilder.Entity<TblOrder>(entity =>
         {
-            entity.HasKey(e => e.OrderId);
+            entity
+                .HasNoKey()
+                .ToTable("Tbl_Order");
 
-            entity.ToTable("Tbl_InvetoryOrder");
-
-            entity.Property(e => e.OrderId).HasColumnName("OrderID");
-            entity.Property(e => e.Items)
+            entity.Property(e => e.OrderId)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.TotalPrice).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.OrderItemId)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.OrderItemPrice).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.OrderTotalPrice).HasColumnType("decimal(18, 2)");
         });
 
         OnModelCreatingPartial(modelBuilder);
