@@ -10,26 +10,5 @@
         {
             _bl_inventoryItem = bl_inventoryItem;
         }
-
-        //[HttpGet("GetAllItem")]
-        //public async Task<IActionResult> GetAllItem()
-        //{
-        //    var lst = await  _bl_inventoryItem.GetAllItem();
-        //    return Ok(lst);
-        //}
-
-        //[HttpGet]
-        //public async Task<IActionResult> GetAllItem1()
-        //{
-        //    try
-        //    {
-        //        var model = await _bl_inventoryItem.GetAllItem();
-        //        return Ok(model);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest();
-        //    }
-        //}
     }
 }
