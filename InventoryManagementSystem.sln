@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryManagementSystemAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryManagementSystemApi.DbService", "InventoryManagementSystemApi.DbService\InventoryManagementSystemApi.DbService.csproj", "{AFDFF980-B605-43B7-B3D8-11B164EE539F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doctouments", "Doctouments", "{3748EE43-6041-47E1-B1BB-7C486ABE7DF1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{3748EE43-6041-47E1-B1BB-7C486ABE7DF1}"
 	ProjectSection(SolutionItems) = preProject
 		ims_db_script.sql = ims_db_script.sql
 	EndProjectSection
