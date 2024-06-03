@@ -1,4 +1,5 @@
 using InventoryManagementSystemApi.DbService.Model;
+using InventoryManagementSystemApi.Features.InventoryCategory;
 using InventoryManagementSystemApi.Features.InventoryItem;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,12 +32,14 @@ namespace InventoryManagementSystemAPI
         private static IServiceCollection AddBusinessLogicServices(this IServiceCollection services)
         {
             services.AddScoped<BL_InventoryItem>();
+            services.AddScoped<BL_InventoryCategory>();
             return services;
         }
 
         private static IServiceCollection AddDataAccessServices(this IServiceCollection services)
         {
             services.AddScoped<DL_InventoryItem>();
+            services.AddScoped<DL_InventoryCategory>();
             return services;
         }
     }
