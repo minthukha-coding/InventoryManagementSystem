@@ -10,4 +10,6 @@ public partial class TblItem
     public string ItemCategory { get; set; } = null!;
 
     public decimal ItemPrice { get; set; }
+
+    public string IteamAmount { get; set; } = null!;
 }

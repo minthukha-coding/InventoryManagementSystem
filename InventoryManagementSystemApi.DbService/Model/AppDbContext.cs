@@ -29,9 +29,9 @@ public partial class AppDbContext : DbContext
     {
         modelBuilder.Entity<TblCategory>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("Tbl_Category");
+            entity.HasKey(e => e.CategoryId);
+
+            entity.ToTable("Tbl_Category");
 
             entity.Property(e => e.CategoryId)
                 .HasMaxLength(50)
@@ -47,6 +47,9 @@ public partial class AppDbContext : DbContext
                 .HasNoKey()
                 .ToTable("Tbl_Item");
 
+            entity.Property(e => e.IteamAmount)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.ItemCategory)
                 .HasMaxLength(50)
                 .IsUnicode(false);
