@@ -1,12 +1,27 @@
-﻿namespace InventoryManagementSystemApi.Features.InventoryCategory
+﻿using InventoryManagementSystemApi.Modles;
+using InventoryManagementSystemApi.Modles.Setup.InventoryCategory;
+
+namespace InventoryManagementSystemApi.Features.InventoryCategory
 {
     public class BL_InventoryCategory
     {
-        private readonly DA_InventoryCategory dA_InventoryCategory;
+        private readonly DL_InventoryCategory dA_InventoryCategory;
 
-        public BL_InventoryCategory(DA_InventoryCategory dA_InventoryCategory)
+        public BL_InventoryCategory(DL_InventoryCategory dA_InventoryCategory)
         {
             this.dA_InventoryCategory = dA_InventoryCategory;
+        }
+
+        public async Task<InventoryCategoryListResponseModel> GetCategorys()
+        {
+            var model = await dA_InventoryCategory.GetCategorys();
+            return model; 
+        }   
+
+        public async Task<MessageResponseModel> CreateCategory(InventoryCategoryModel reqModel)
+        {
+            var response = await dA_InventoryCategory.CreateCategory(reqModel);
+            return response; 
         }
     }
 }
