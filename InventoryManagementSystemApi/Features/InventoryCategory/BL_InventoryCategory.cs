@@ -15,13 +15,19 @@ namespace InventoryManagementSystemApi.Features.InventoryCategory
         public async Task<InventoryCategoryListResponseModel> GetCategorys()
         {
             var model = await dA_InventoryCategory.GetCategorys();
-            return model; 
-        }   
+            return model;
+        }
 
         public async Task<MessageResponseModel> CreateCategory(InventoryCategoryModel reqModel)
         {
-            var response = await dA_InventoryCategory.CreateCategory(reqModel);
-            return response; 
+            var model = await dA_InventoryCategory.CreateCategory(reqModel);
+            return model;
+        }
+
+        public async Task<MessageResponseModel> DeleteCategory(string id)
+        {
+            var model = await dA_InventoryCategory.DeleteCategory(id);
+            return model;
         }
     }
 }

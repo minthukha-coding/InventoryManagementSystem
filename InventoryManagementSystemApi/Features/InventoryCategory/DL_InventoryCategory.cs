@@ -2,6 +2,8 @@
 using InventoryManagementSystemApi.DbService.Model;
 using InventoryManagementSystemApi.Modles;
 using InventoryManagementSystemApi.Modles.Setup.InventoryCategory;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace InventoryManagementSystemApi.Features.InventoryCategory
 {
@@ -42,6 +44,17 @@ namespace InventoryManagementSystemApi.Features.InventoryCategory
         public async Task<MessageResponseModel> CreateCategory(InventoryCategoryModel reqModel)
         {
             var model = new MessageResponseModel();
+
+            if (reqModel.CategoryId.IsNullOrEmpty())
+            {
+                throw new Exception("CategoryId Field is Required");
+            }           
+
+            if (reqModel.CategoryName.IsNullOrEmpty())
+            {
+                throw new Exception("CategoryName Field is Required");
+            }
+
             try
             {
                 await _appDbContext.TblCategories.AddAsync(reqModel.Change());
@@ -54,6 +67,40 @@ namespace InventoryManagementSystemApi.Features.InventoryCategory
             {
                 model = new MessageResponseModel(false, ex);
             }
+
+            return model;
+        }
+        
+        public async Task<MessageResponseModel> DeleteCategory(string id)
+        {
+            var model = new MessageResponseModel();
+
+            try
+            {
+                var item = await _appDbContext
+                    .TblCategories
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(x => x.CategoryId == id);
+
+                if (item is null)
+                {
+                    model = new MessageResponseModel(false, EnumStatus.NotFound.ToString());
+                    goto Result;
+                }
+
+                _appDbContext.TblCategories.Remove(item);
+                var result = await _appDbContext.SaveChangesAsync();
+
+                model = result > 0
+                    ? new MessageResponseModel(true, EnumStatus.Success.ToString())
+                    : new MessageResponseModel(false, EnumStatus.Fail.ToString());
+            }
+            catch (Exception ex)
+            {
+                model = new MessageResponseModel(false, ex);
+            }
+
+            Result:
             return model;
         }
     }
