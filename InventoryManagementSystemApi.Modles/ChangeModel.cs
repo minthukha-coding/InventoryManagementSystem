@@ -1,4 +1,5 @@
 ﻿using InventoryManagementSystemApi.DbService.Model;
+using InventoryManagementSystemApi.Modles.Setup.InventoryCategory;
 using InventoryManagementSystemApi.Modles.Setup.InventoryItem;
 using Microsoft.VisualBasic;
 using System;
@@ -25,6 +26,30 @@ namespace InventoryManagementSystemApi.Modles
         //    };
         //    return item;
         //}
+
+        #endregion
+
+        #region InventoryCategory
+
+        public static InventoryCategoryModel Change(this TblCategory dataModel)
+        {
+            var item = new InventoryCategoryModel
+            {
+                CategoryId = dataModel.CategoryId,
+                CategoryName = dataModel.CategoryName,
+            };
+            return item;
+        }
+
+        public static TblCategory Change(this InventoryCategoryModel dataModel)
+        {
+            var item = new TblCategory
+            {
+                CategoryId = dataModel.CategoryId,
+                CategoryName = dataModel.CategoryName,
+            };
+            return item;
+        }
 
         #endregion
     }
