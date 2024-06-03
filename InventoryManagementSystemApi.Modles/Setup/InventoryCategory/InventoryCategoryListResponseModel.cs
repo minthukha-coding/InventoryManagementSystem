@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace InventoryManagementSystemApi.Modles.Setup.InventoryCategory
+{
+    public class InventoryCategoryListResponseModel
+    {
+        public List<InventoryCategoryModel> DataLst { get; set; }
+        public MessageResponseModel MessageResponse { get; set; }
+        public PageSettingModel PageSetting { get; set; }
+    }
+}
