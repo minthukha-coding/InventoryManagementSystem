@@ -39,6 +39,35 @@ namespace InventoryManagementSystemApi.Features.InventoryCategory
             }
 
             return model;
+        }  
+        
+        public async Task<InventoryCategoryResponseModel> GetCategoryById(string id)
+        {
+            var model = new InventoryCategoryResponseModel();
+
+            try
+            {
+                var item = await _appDbContext
+                    .TblCategories
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(x => x.CategoryId == id);
+                if(item is null)
+                {
+                    model.MessageResponseModel = new MessageResponseModel(false,
+                        EnumStatus.Fail.ToString());
+                    goto Result;
+                }
+                model.Data = item.Change();
+                model.MessageResponseModel = new MessageResponseModel(true,
+                    EnumStatus.Success.ToString());
+            }
+            catch (Exception ex)
+            {
+                model.MessageResponseModel = new MessageResponseModel(false, ex.Message);
+            }
+
+        Result:
+            return model;
         }
 
         public async Task<MessageResponseModel> CreateCategory(InventoryCategoryModel reqModel)

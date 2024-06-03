@@ -27,6 +27,20 @@ namespace InventoryManagementSystemApi.Features.InventoryCategory
             }
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCategoryById(string id)
+        {
+            try
+            {
+                var model = await bl_inventoryCategory.GetCategoryById(id);
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpPost("CreateCategory")]
         public async Task<IActionResult> CreateCategory(InventoryCategoryModel reqModel)
         {
