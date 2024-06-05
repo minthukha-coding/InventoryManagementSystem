@@ -43,20 +43,20 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<TblItem>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("Tbl_Item");
+            entity.HasKey(e => e.ItemName).HasName("PK_Tbl_Item1");
 
+            entity.ToTable("Tbl_Item");
+
+            entity.Property(e => e.ItemName)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.IteamAmount)
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.ItemCategory)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.ItemName)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.ItemPrice).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.ItemPrice).HasColumnType("decimal(18, 0)");
         });
 
         modelBuilder.Entity<TblOrder>(entity =>
