@@ -1,7 +1,10 @@
-﻿namespace InventoryManagementSystemApi.Modles.Setup.InventoryItem
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace InventoryManagementSystemApi.Modles.Setup.InventoryItem
 {
     public class InventoryItemModel
     {
+        [Key]
         public string ItemName { get; set; }
         public string ItemCategory { get; set; }
         public decimal ItemPrice { get; set; }
