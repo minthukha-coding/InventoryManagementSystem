@@ -26,6 +26,19 @@ namespace InventoryManagementSystemApi.Features.InventoryItem
             {
                 return BadRequest();
             }
+        }  
+        [HttpGet("GetItemListByItemName")]
+        public async Task<IActionResult> GetItemListByItemName(string reqModel)
+        {
+            try
+            {
+                var model = await _bl_inventoryItem.GetItemByItemName(reqModel);
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPost("CreateItem")]
