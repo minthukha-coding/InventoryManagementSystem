@@ -1,4 +1,4 @@
-﻿using InventoryManagementSystemApi.DbService.Model;
+using InventoryManagementSystemApi.DbService.Model;
 using InventoryManagementSystemApi.Modles.Setup.InventoryCategory;
 using InventoryManagementSystemApi.Modles.Setup.InventoryItem;
 using Microsoft.VisualBasic;
@@ -50,7 +50,7 @@ namespace InventoryManagementSystemApi.Modles
                 CategoryName = dataModel.CategoryName,
             };
             return item;
-        }
+        } 
 
         public static TblCategory Change(this InventoryCategoryModel dataModel)
         {

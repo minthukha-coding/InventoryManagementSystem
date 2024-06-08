@@ -1,4 +1,4 @@
-﻿using InventoryManagementSystemApi.Features.InventoryCategory;
+using InventoryManagementSystemApi.Features.InventoryCategory;
 using InventoryManagementSystemApi.Modles.Setup.InventoryCategory;
 using InventoryManagementSystemApi.Modles.Setup.InventoryItem;
 
@@ -14,6 +14,7 @@ namespace InventoryManagementSystemApi.Features.InventoryItem
         {
             _bl_inventoryItem = bl_inventoryItem;
         }
+
         [HttpGet("GetItemList")]
         public async Task<IActionResult> GetItemList()
         {
