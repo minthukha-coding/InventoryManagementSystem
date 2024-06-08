@@ -40,37 +40,37 @@ namespace InventoryManagementSystemApi.Features.InventoryItem
             return model;
         }
 
-        //public async Task<InventoryItemListRespnseModel> GetItemByCategoryId(string id)
-        //{
-        //    var model = new InventoryItemModel();
+        public async Task<InventoryItemListRespnseModel> GetItemByItemName(string reqModel)
+        {
+            var model = new InventoryItemListRespnseModel();
 
-        //    try
-        //    {
-        //        var item = await _appDbContext
-        //            .TblCategories
-        //            .AsNoTracking()
-        //            .Where(category => id.Contains(category.CategoryId))
-        //            .ToListAsync();
+            try
+            {
+                var item = await _appDbContext
+                    .TblItems
+                    .AsNoTracking()
+                    .Where(item => reqModel.Contains(item.ItemName))
+                    .ToListAsync();
 
-                //if (item is null)
-                //{
-                //    model.MessageResponseModel = new MessageResponseModel(false,
-                //        EnumStatus.Fail.ToString());
-                //    goto Result;
-                //}
+                if (item is null)
+                {
+                    model.MessageResponse = new MessageResponseModel(false,
+                        EnumStatus.Fail.ToString());
+                    goto Result;
+                }
 
-                //model.Data = item.Change();
-                //model.MessageResponseModel = new MessageResponseModel(true,
-                //    EnumStatus.Success.ToString());
-            //}
-            //catch (Exception ex)
-            //{
-                //model.MessageResponseModel = new MessageResponseModel(false, ex.Message);
-            //}
+                model.DataLst = item.Select(x => x.Change()).ToList();
+                model.MessageResponse = new MessageResponseModel(true,
+                    EnumStatus.Success.ToString());
+            }
+            catch (Exception ex)
+            {
+                model.MessageResponse = new MessageResponseModel(false, ex.Message);
+            }
 
-        //Result:
-            //return model;
-        //}
+        Result:
+            return model;
+        }
 
         public async Task<MessageResponseModel> CreateItem(InventoryItemModel reqModel)
         {
