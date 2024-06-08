@@ -23,6 +23,11 @@ namespace InventoryManagementSystemApi.Features.InventoryItem
         {
             var model = await _dl_inventoryItem.CreateItem(reqModel);
             return model;
+        }  
+        public async Task<InventoryItemListRespnseModel> GetItemByItemName(string reqModel)
+        {
+            var model = await _dl_inventoryItem.GetItemByItemName(reqModel);
+            return model;
         }
         public async Task<MessageResponseModel> DeleteItem(string id)
         {
