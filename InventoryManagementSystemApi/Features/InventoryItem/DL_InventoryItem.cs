@@ -168,7 +168,7 @@ namespace InventoryManagementSystemApi.Features.InventoryItem
 
             try
             {
-                if (reqModel.ItemPrice <= 0 || reqModel.ItemAmount == null)
+                if (reqModel.ItemPrice <= 0 && reqModel.ItemAmount == null)
                 {
                     model = new MessageResponseModel(false, "ItemPrice or ItemAmount is null");
                     return model;
@@ -185,12 +185,33 @@ namespace InventoryManagementSystemApi.Features.InventoryItem
                     goto Result;
                 }
 
+                //#region Value Insert
+
+                //item.ItemPrice = reqModel.ItemPrice;
+                //item.IteamAmount = reqModel.ItemAmount;
+
+                //#endregion
+
                 #region Value Insert
 
-                item.ItemPrice = reqModel.ItemPrice;
-                item.IteamAmount = reqModel.ItemAmount;
+                // Update only the provided fields
+
+                if (reqModel.ItemPrice > 0)
+                {
+                    //if (reqModel.ItemPrice <= 0)
+                    //{
+                    //    model = new MessageResponseModel(false, "Invalid ItemPrice");
+                    //}
+                    item.ItemPrice = reqModel.ItemPrice;
+                }
+
+                if (!string.IsNullOrEmpty(reqModel.ItemAmount))
+                {
+                    item.IteamAmount = reqModel.ItemAmount;
+                }
 
                 #endregion
+
 
                 _appDbContext.TblItems.Update(item);
                 await _appDbContext.SaveChangesAsync();
