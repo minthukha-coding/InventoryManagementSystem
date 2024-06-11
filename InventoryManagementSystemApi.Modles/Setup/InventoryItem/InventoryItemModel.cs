@@ -10,4 +10,9 @@ namespace InventoryManagementSystemApi.Modles.Setup.InventoryItem
         public decimal ItemPrice { get; set; }
         public string ItemAmount { get; set; }
     }  
+    public class UpdateInventoryItemReqModel
+    {
+        public decimal ItemPrice { get; set; }
+        public string ItemAmount { get; set; }
+    }  
 }

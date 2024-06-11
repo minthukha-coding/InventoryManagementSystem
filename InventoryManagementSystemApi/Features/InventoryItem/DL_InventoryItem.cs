@@ -162,12 +162,18 @@ namespace InventoryManagementSystemApi.Features.InventoryItem
         Result:
             return model;
         }    
-        public async Task<MessageResponseModel> UpdateItemByItemName(string itemName,InventoryItemModel reqModel)
+        public async Task<MessageResponseModel> UpdateItemByItemName(string itemName, UpdateInventoryItemReqModel reqModel)
         {
             var model = new MessageResponseModel();
 
             try
             {
+                if (reqModel.ItemPrice <= 0 || reqModel.ItemAmount == null)
+                {
+                    model = new MessageResponseModel(false, "ItemPrice or ItemAmount is null");
+                    return model;
+                }
+
                 var item = await _appDbContext
                     .TblItems
                     .AsNoTracking()
