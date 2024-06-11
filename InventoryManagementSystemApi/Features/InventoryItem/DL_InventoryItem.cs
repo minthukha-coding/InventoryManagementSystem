@@ -161,6 +161,44 @@ namespace InventoryManagementSystemApi.Features.InventoryItem
 
         Result:
             return model;
+        }    
+        public async Task<MessageResponseModel> UpdateItemByItemName(string itemName,InventoryItemModel reqModel)
+        {
+            var model = new MessageResponseModel();
+
+            try
+            {
+                var item = await _appDbContext
+                    .TblItems
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(x => x.ItemName == itemName);
+
+                if (item is null)
+                {
+                    model = new MessageResponseModel(false, EnumStatus.NotFound.ToString());
+                    goto Result;
+                }
+
+                #region Value Insert
+
+                item.ItemPrice = reqModel.ItemPrice;
+                item.IteamAmount = reqModel.ItemAmount;
+
+                #endregion
+
+                _appDbContext.TblItems.Update(item);
+                await _appDbContext.SaveChangesAsync();
+
+                model = new MessageResponseModel(true, EnumStatus.Success.ToString());
+
+            }
+            catch (Exception ex)
+            {
+                model = new MessageResponseModel(false, ex);
+            }
+
+        Result:
+            return model;
         }
     }
 }

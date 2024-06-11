@@ -9,5 +9,5 @@ namespace InventoryManagementSystemApi.Modles.Setup.InventoryItem
         public string ItemCategory { get; set; }
         public decimal ItemPrice { get; set; }
         public string ItemAmount { get; set; }
-    }
+    }  
 }
