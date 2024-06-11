@@ -130,7 +130,7 @@ namespace InventoryManagementSystemApi.Features.InventoryItem
             return model;
         }
 
-        public async Task<MessageResponseModel> DeleteItem(string id)
+        public async Task<MessageResponseModel> DeleteItemByItemName(string itemName)
         {
             var model = new MessageResponseModel();
 
@@ -139,7 +139,7 @@ namespace InventoryManagementSystemApi.Features.InventoryItem
                 var item = await _appDbContext
                     .TblItems
                     .AsNoTracking()
-                    .FirstOrDefaultAsync(x => x.ItemCategory == id);
+                    .FirstOrDefaultAsync(x => x.ItemName == itemName);
 
                 if (item is null)
                 {

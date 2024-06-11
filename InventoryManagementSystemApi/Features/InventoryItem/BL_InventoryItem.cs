@@ -29,9 +29,9 @@ namespace InventoryManagementSystemApi.Features.InventoryItem
             var model = await _dl_inventoryItem.GetItemByItemName(reqModel);
             return model;
         }
-        public async Task<MessageResponseModel> DeleteItem(string id)
+        public async Task<MessageResponseModel> DeleteItemByItemName(string itemName)
         {
-            var model = await _dl_inventoryItem.DeleteItem(id);
+            var model = await _dl_inventoryItem.DeleteItemByItemName(itemName);
             return model;
         }
     }

@@ -25,7 +25,7 @@ namespace InventoryManagementSystemApi.Features.InventoryItem
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex);
             }
         }  
         [HttpGet("GetItemListByItemName")]
@@ -38,7 +38,7 @@ namespace InventoryManagementSystemApi.Features.InventoryItem
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex);
             }
         }
 
@@ -52,20 +52,20 @@ namespace InventoryManagementSystemApi.Features.InventoryItem
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex);
             }
         }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory(string id)
+        [HttpDelete("{itemName}")]
+        public async Task<IActionResult> DeleteItemByItemName(string itemName)
         {
             try
             {
-                var model = await _bl_inventoryItem.DeleteItem(id);
+                var model = await _bl_inventoryItem.DeleteItemByItemName(itemName);
                 return Ok(model);
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex);
             }
         }
     }
