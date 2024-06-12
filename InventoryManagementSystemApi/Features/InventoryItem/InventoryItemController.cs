@@ -44,7 +44,7 @@ namespace InventoryManagementSystemApi.Features.InventoryItem
         }  
 
         [HttpPatch]
-        public async Task<IActionResult> DeleteItemByItemName(string itemName, UpdateInventoryItemReqModel reqModel)
+        public async Task<IActionResult> UpdateItemByItemName(string itemName, UpdateInventoryItemReqModel reqModel)
         {
                 var model = await _bl_inventoryItem.UpdateItemByItemName(itemName, reqModel);
                 return Ok(model);
