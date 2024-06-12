@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace InventoryManagementSystemApi.Modles.Setup.InventoryItem
+﻿namespace InventoryManagementSystemApi.Modles.Setup.InventoryItem
 {
     public class InventoryItemModel
     {

@@ -1,7 +1,4 @@
-﻿using InventoryManagementSystemApi.Modles;
-using InventoryManagementSystemApi.Modles.Setup.InventoryCategory;
-
-namespace InventoryManagementSystemApi.Features.InventoryCategory
+﻿namespace InventoryManagementSystemApi.Features.InventoryCategory
 {
     public class BL_InventoryCategory
     {

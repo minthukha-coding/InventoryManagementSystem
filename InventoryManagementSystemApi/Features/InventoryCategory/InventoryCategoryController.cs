@@ -1,6 +1,4 @@
-﻿using InventoryManagementSystemApi.Modles.Setup.InventoryCategory;
-
-namespace InventoryManagementSystemApi.Features.InventoryCategory
+﻿namespace InventoryManagementSystemApi.Features.InventoryCategory
 {
     [Route("api/v1/[controller]")]
     [ApiController]

@@ -1,9 +1,4 @@
-﻿using InventoryManagementSystemApi.Modles.Setup.InventoryCategory;
-using InventoryManagementSystemApi.Modles;
-using InventoryManagementSystemApi.Modles.Setup.InventoryItemListRespnseModel;
-using InventoryManagementSystemApi.Modles.Setup.InventoryItem;
-
-namespace InventoryManagementSystemApi.Features.InventoryItem
+﻿namespace InventoryManagementSystemApi.Features.InventoryItem
 {
     public class BL_InventoryItem
     {

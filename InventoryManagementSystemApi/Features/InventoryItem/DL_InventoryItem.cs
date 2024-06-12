@@ -1,11 +1,4 @@
-﻿using InventoryManagementSystemApi.DbService.Model;
-using InventoryManagementSystemApi.Modles;
-using InventoryManagementSystemApi.Modles.Setup.InventoryCategory;
-using InventoryManagementSystemApi.Modles.Setup.InventoryItem;
-using InventoryManagementSystemApi.Modles.Setup.InventoryItemListRespnseModel;
-using Microsoft.IdentityModel.Tokens;
-
-namespace InventoryManagementSystemApi.Features.InventoryItem
+﻿namespace InventoryManagementSystemApi.Features.InventoryItem
 {
     public class DL_InventoryItem
     {

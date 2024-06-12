@@ -1,11 +1,4 @@
-﻿using Azure;
-using InventoryManagementSystemApi.DbService.Model;
-using InventoryManagementSystemApi.Modles;
-using InventoryManagementSystemApi.Modles.Setup.InventoryCategory;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-
-namespace InventoryManagementSystemApi.Features.InventoryCategory
+﻿namespace InventoryManagementSystemApi.Features.InventoryCategory
 {
     public class DL_InventoryCategory
     {
