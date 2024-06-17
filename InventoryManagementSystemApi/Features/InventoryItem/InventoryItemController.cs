@@ -9,7 +9,7 @@ namespace InventoryManagementSystemApi.Features.InventoryItem
         public InventoryItemController(BL_InventoryItem bl_inventoryItem)
         {
             _bl_inventoryItem = bl_inventoryItem;
-        }
+        } 
 
         [HttpGet("GetItemList")]
         public async Task<IActionResult> GetItemList()
