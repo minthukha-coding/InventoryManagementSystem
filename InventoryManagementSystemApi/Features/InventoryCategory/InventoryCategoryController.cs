@@ -18,7 +18,7 @@
             {
                 var model = await bl_inventoryCategory.GetCategorys();
                 return Ok(model);
-            }
+            } 
             catch (Exception ex)
             {
                 return BadRequest();
