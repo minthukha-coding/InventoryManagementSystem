@@ -1,4 +1,4 @@
-﻿namespace InventoryManagementSystemApi.Features.InventoryCategory
+namespace InventoryManagementSystemApi.Features.InventoryCategory
 {
     public class BL_InventoryCategory
     {
@@ -8,7 +8,7 @@
         {
             this.dA_InventoryCategory = dA_InventoryCategory;
         }
-
+ 
         public async Task<InventoryCategoryListResponseModel> GetCategorys()
         {
             var model = await dA_InventoryCategory.GetCategorys();
