@@ -1,9 +1,9 @@
-﻿namespace InventoryManagementSystemApi.Features.InventoryCategory
+namespace InventoryManagementSystemApi.Features.InventoryCategory
 {
     [Route("api/v1/[controller]")]
     [ApiController]
     public class InventoryCategoryController : ControllerBase
-    {
+    { 
         private readonly BL_InventoryCategory bl_inventoryCategory;
 
         public InventoryCategoryController(BL_InventoryCategory bl_inventoryCategory)
