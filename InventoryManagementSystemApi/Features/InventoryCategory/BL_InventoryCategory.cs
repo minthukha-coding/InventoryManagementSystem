@@ -1,5 +1,5 @@
 namespace InventoryManagementSystemApi.Features.InventoryCategory
-{
+{ 
     public class BL_InventoryCategory
     {
         private readonly DL_InventoryCategory dA_InventoryCategory;
