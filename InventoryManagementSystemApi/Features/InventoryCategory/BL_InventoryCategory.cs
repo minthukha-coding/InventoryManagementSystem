@@ -5,7 +5,7 @@ namespace InventoryManagementSystemApi.Features.InventoryCategory
         private readonly DL_InventoryCategory dA_InventoryCategory;
 
         public BL_InventoryCategory(DL_InventoryCategory dA_InventoryCategory)
-        {
+        { 
             this.dA_InventoryCategory = dA_InventoryCategory;
         }
  
