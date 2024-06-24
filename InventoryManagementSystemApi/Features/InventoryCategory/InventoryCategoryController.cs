@@ -7,7 +7,7 @@ namespace InventoryManagementSystemApi.Features.InventoryCategory
         private readonly BL_InventoryCategory bl_inventoryCategory;
 
         public InventoryCategoryController(BL_InventoryCategory bl_inventoryCategory)
-        {
+        { 
             this.bl_inventoryCategory = bl_inventoryCategory;
         }
 
