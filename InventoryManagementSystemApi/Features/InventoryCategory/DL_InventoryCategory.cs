@@ -1,4 +1,4 @@
-﻿namespace InventoryManagementSystemApi.Features.InventoryCategory
+namespace InventoryManagementSystemApi.Features.InventoryCategory
 {
     public class DL_InventoryCategory
     {
@@ -13,7 +13,7 @@
         {
             var model = new InventoryCategoryListResponseModel();
 
-            try
+            try 
             {
                 var item = await _appDbContext
                     .TblCategories
