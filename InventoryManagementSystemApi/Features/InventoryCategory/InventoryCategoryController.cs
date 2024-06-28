@@ -3,11 +3,11 @@ namespace InventoryManagementSystemApi.Features.InventoryCategory
     [Route("api/v1/[controller]")]
     [ApiController]
     public class InventoryCategoryController : ControllerBase
-    { 
+    {
         private readonly BL_InventoryCategory bl_inventoryCategory;
 
         public InventoryCategoryController(BL_InventoryCategory bl_inventoryCategory)
-        { 
+        {
             this.bl_inventoryCategory = bl_inventoryCategory;
         }
 
@@ -18,7 +18,7 @@ namespace InventoryManagementSystemApi.Features.InventoryCategory
             {
                 var model = await bl_inventoryCategory.GetCategorys();
                 return Ok(model);
-            } 
+            }
             catch (Exception ex)
             {
                 return BadRequest();

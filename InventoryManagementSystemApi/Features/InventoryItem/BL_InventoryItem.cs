@@ -18,7 +18,7 @@
         {
             var model = await _dl_inventoryItem.CreateItem(reqModel);
             return model;
-        }  
+        }
         public async Task<InventoryItemListRespnseModel> GetItemByItemName(string reqModel)
         {
             var model = await _dl_inventoryItem.GetItemByItemName(reqModel);
@@ -28,10 +28,10 @@
         {
             var model = await _dl_inventoryItem.DeleteItemByItemName(itemName);
             return model;
-        }     
+        }
         public async Task<MessageResponseModel> UpdateItemByItemName(string itemName, UpdateInventoryItemReqModel reqModel)
         {
-            var model = await _dl_inventoryItem.UpdateItemByItemName(itemName,reqModel);
+            var model = await _dl_inventoryItem.UpdateItemByItemName(itemName, reqModel);
             return model;
         }
     }

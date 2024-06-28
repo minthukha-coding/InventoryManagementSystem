@@ -154,7 +154,7 @@
 
         Result:
             return model;
-        }    
+        }
         public async Task<MessageResponseModel> UpdateItemByItemName(string itemName, UpdateInventoryItemReqModel reqModel)
         {
             var model = new MessageResponseModel();

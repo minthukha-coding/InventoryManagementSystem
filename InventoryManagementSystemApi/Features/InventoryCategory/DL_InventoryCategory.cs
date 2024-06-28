@@ -13,7 +13,7 @@ namespace InventoryManagementSystemApi.Features.InventoryCategory
         {
             var model = new InventoryCategoryListResponseModel();
 
-            try 
+            try
             {
                 var item = await _appDbContext
                     .TblCategories
@@ -32,8 +32,8 @@ namespace InventoryManagementSystemApi.Features.InventoryCategory
             }
 
             return model;
-        }  
-        
+        }
+
         public async Task<InventoryCategoryResponseModel> GetCategoryById(string id)
         {
             var model = new InventoryCategoryResponseModel();
@@ -44,7 +44,7 @@ namespace InventoryManagementSystemApi.Features.InventoryCategory
                     .TblCategories
                     .AsNoTracking()
                     .FirstOrDefaultAsync(x => x.CategoryId == id);
-                if(item is null)
+                if (item is null)
                 {
                     model.MessageResponseModel = new MessageResponseModel(false,
                         EnumStatus.Fail.ToString());
@@ -70,7 +70,7 @@ namespace InventoryManagementSystemApi.Features.InventoryCategory
             if (reqModel.CategoryId.IsNullOrEmpty())
             {
                 throw new Exception("CategoryId Field is Required");
-            }           
+            }
 
             if (reqModel.CategoryName.IsNullOrEmpty())
             {
@@ -92,7 +92,7 @@ namespace InventoryManagementSystemApi.Features.InventoryCategory
 
             return model;
         }
-        
+
         public async Task<MessageResponseModel> DeleteCategory(string id)
         {
             var model = new MessageResponseModel();
@@ -122,7 +122,7 @@ namespace InventoryManagementSystemApi.Features.InventoryCategory
                 model = new MessageResponseModel(false, ex);
             }
 
-            Result:
+        Result:
             return model;
         }
     }
