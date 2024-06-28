@@ -2,21 +2,14 @@ namespace InventoryManagementSystemApi.Features.InventoryCategory
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class InventoryCategoryController : ControllerBase
+    public class InventoryCategoryController(BL_InventoryCategory blInventoryCategory) : ControllerBase
     {
-        private readonly BL_InventoryCategory bl_inventoryCategory;
-
-        public InventoryCategoryController(BL_InventoryCategory bl_inventoryCategory)
-        {
-            this.bl_inventoryCategory = bl_inventoryCategory;
-        }
-
         [HttpGet("GetCategorys")]
         public async Task<IActionResult> GetCategorys()
         {
             try
             {
-                var model = await bl_inventoryCategory.GetCategorys();
+                var model = await blInventoryCategory.GetCategorys();
                 return Ok(model);
             }
             catch (Exception ex)
@@ -30,7 +23,7 @@ namespace InventoryManagementSystemApi.Features.InventoryCategory
         {
             try
             {
-                var model = await bl_inventoryCategory.GetCategoryById(id);
+                var model = await blInventoryCategory.GetCategoryById(id);
                 return Ok(model);
             }
             catch (Exception ex)
@@ -44,7 +37,7 @@ namespace InventoryManagementSystemApi.Features.InventoryCategory
         {
             try
             {
-                var model = await bl_inventoryCategory.CreateCategory(reqModel);
+                var model = await blInventoryCategory.CreateCategory(reqModel);
                 return Ok(model);
             }
             catch (Exception ex)
@@ -58,7 +51,7 @@ namespace InventoryManagementSystemApi.Features.InventoryCategory
         {
             try
             {
-                var model = await bl_inventoryCategory.DeleteCategory(id);
+                var model = await blInventoryCategory.DeleteCategory(id);
                 return Ok(model);
             }
             catch (Exception ex)
