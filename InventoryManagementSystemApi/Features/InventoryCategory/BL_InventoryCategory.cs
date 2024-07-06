@@ -12,7 +12,7 @@ namespace InventoryManagementSystemApi.Features.InventoryCategory
         public async Task<InventoryCategoryListResponseModel> GetCategorys()
         {
             var model = await dA_InventoryCategory.GetCategorys();
-            return model;
+            return model; 
         }
 
         public async Task<InventoryCategoryResponseModel> GetCategoryById(string id)
