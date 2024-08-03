@@ -17,4 +17,8 @@
 	  <ProjectReference Include="..\InventoryManagementSystemApi.Modles\InventoryManagementSystemApi.Modles.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Features\" />
+	</ItemGroup>
+
 </Project>
