@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace InventoryManagementSystemApi.DbService.Model;
+namespace InventoryManagementSystemApi.DbService.Db;
 
 public partial class TblItem
 {
@@ -11,5 +11,5 @@ public partial class TblItem
 
     public decimal ItemPrice { get; set; }
 
-    public string IteamAmount { get; set; } = null!;
+    public string ItemAmount { get; set; } = null!;
 }
