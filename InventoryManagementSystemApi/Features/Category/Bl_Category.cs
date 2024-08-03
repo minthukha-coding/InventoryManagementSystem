@@ -1,4 +1,5 @@
 ﻿using InventoryManagementSystemApi.Modles.Setup.Category;
+using InventoryManagementSystemApi.Shared;
 
 namespace InventoryManagementSystemApi.Features.Category;
 
@@ -11,9 +12,15 @@ public class Bl_Category
         _category = category;
     }
 
-    public async Task<CategoryListModel> GetCategoryList()
+    public async Task<Result<CategoryListModel>> GetCategoryList()
     {
         var model = await _category.GetCategoryList();
+        return model;
+    }
+    
+    public async Task<Result<CategoryModel>> CreateCategory(CategoryModel reqModel)
+    {
+        var model = await _category.CreateCategory(reqModel);
         return model;
     }
 }
