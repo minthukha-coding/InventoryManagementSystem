@@ -1,10 +1,6 @@
 ﻿global using Microsoft.EntityFrameworkCore;
 global using Microsoft.AspNetCore.Mvc;
 global using InventoryManagementSystemApi.Modles;
-global using InventoryManagementSystemApi.Modles.Setup.InventoryCategory;
-global using Azure;
-global using InventoryManagementSystemApi.DbService.Model;
 global using Microsoft.IdentityModel.Tokens;
-global using InventoryManagementSystemApi.Modles.Setup.InventoryItemListRespnseModel;
-global using InventoryManagementSystemApi.Modles.Setup.InventoryItem;
 global using InventoryManagementSystemApi.Features.InventoryCategory;
+global using InventoryManagementSystemAPI;
