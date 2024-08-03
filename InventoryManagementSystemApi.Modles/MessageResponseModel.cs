@@ -1,22 +1,21 @@
-﻿namespace InventoryManagementSystemApi.Modles
+﻿namespace InventoryManagementSystemApi.Modles;
+
+public class MessageResponseModel
 {
-    public class MessageResponseModel
+    public MessageResponseModel()
     {
-        public MessageResponseModel()
-        {
-        }
-        public MessageResponseModel(bool isSuccess, string message)
-        {
-            IsSuccess = isSuccess;
-            Message = message;
-        }
-        public MessageResponseModel(bool isSuccess, Exception ex)
-        {
-            IsSuccess = isSuccess;
-            Message = ex.ToString();
-        }
-        public bool IsSuccess { get; set; }
-        public bool IsError => !IsSuccess;
-        public string Message { get; set; }
     }
+    public MessageResponseModel(bool isSuccess, string message)
+    {
+        IsSuccess = isSuccess;
+        Message = message;
+    }
+    public MessageResponseModel(bool isSuccess, Exception ex)
+    {
+        IsSuccess = isSuccess;
+        Message = ex.ToString();
+    }
+    public bool IsSuccess { get; set; }
+    public bool IsError => !IsSuccess;
+    public string Message { get; set; }
 }
