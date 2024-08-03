@@ -15,6 +15,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\InventoryManagementSystemApi.DbService\InventoryManagementSystemApi.DbService.csproj" />
 	  <ProjectReference Include="..\InventoryManagementSystemApi.Modles\InventoryManagementSystemApi.Modles.csproj" />
+	  <ProjectReference Include="..\InventoryManagementSystemApi.Shared\InventoryManagementSystemApi.Shared.csproj" />
 	</ItemGroup>
 
 </Project>
