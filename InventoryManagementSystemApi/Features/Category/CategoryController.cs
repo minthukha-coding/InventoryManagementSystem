@@ -1,10 +1,12 @@
 ﻿using InventoryManagementSystemApi.Modles.Setup.Category;
 using InventoryManagementSystemApi.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryManagementSystemApi.Features.Category;
 
+[Authorize]
 [Route("api/inventory/category")]
 [ApiController]
 public class CategoryController : ControllerBase
