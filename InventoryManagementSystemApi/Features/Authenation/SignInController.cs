@@ -11,26 +11,24 @@ namespace InventoryManagementSystemApi.Features.Authenation;
 [ApiController]
 public class SignInController : ControllerBase
 {
-    [HttpPost("signIn")]
-    public async Task<IActionResult> SignIn([FromBody] UserModel reqModel)
-    {
-        if (reqModel.UserName != "test" || reqModel.UserPassword != "password")
-            return Unauthorized();
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes("YourSecretKeyHere");
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(new Claim[]
-            {
-                new Claim(ClaimTypes.Name, reqModel.UserName)
-            }),
-            Expires = DateTime.UtcNow.AddHours(1),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        };
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        var tokenString = tokenHandler.WriteToken(token);
+    private readonly BL_SignIn _blSignIn;
 
-        // Return the token
-        return Ok(new { Token = tokenString });
+    public SignInController(BL_SignIn blSignIn)
+    {
+        _blSignIn = blSignIn;
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> SignIn(SignInRequestModel reqModel)
+    {
+        try
+        {
+            var model = await _blSignIn.SignIn(reqModel);
+            return Ok(model);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
+        }
     }
 }
