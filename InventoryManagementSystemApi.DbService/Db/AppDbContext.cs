@@ -23,6 +23,10 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<TblUser> TblUsers { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=.;Database=InventoryManagementSystem;User ID=sa;Password=sasa@123;TrustServerCertificate=True;");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TblCategory>(entity =>
@@ -39,6 +43,20 @@ public partial class AppDbContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("categoryName");
+            entity.Property(e => e.CreatedDateTime)
+                .HasColumnType("datetime")
+                .HasColumnName("createdDateTime");
+            entity.Property(e => e.CreatedUserId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("createdUserId");
+            entity.Property(e => e.UpdatedDateTime)
+                .HasColumnType("datetime")
+                .HasColumnName("updatedDateTime");
+            entity.Property(e => e.UpdatedUserId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("updatedUserId");
         });
 
         modelBuilder.Entity<TblItem>(entity =>
@@ -107,7 +125,12 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("usereId");
             entity.Property(e => e.HashPassword)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("hashPassword");
+            entity.Property(e => e.Role)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("role");
             entity.Property(e => e.UserName)
                 .HasMaxLength(50)
                 .IsUnicode(false)

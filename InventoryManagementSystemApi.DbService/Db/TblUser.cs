@@ -10,4 +10,6 @@ public partial class TblUser
     public string UserName { get; set; } = null!;
 
     public string HashPassword { get; set; } = null!;
+
+    public string Role { get; set; } = null!;
 }
