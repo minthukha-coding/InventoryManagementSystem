@@ -1,12 +1,12 @@
 USE [master]
 GO
-/****** Object:  Database [InventoryManagementSystem]    Script Date: 6/17/2024 11:17:16 PM ******/
+/****** Object:  Database [InventoryManagementSystem]    Script Date: 8/5/2024 10:45:55 PM ******/
 CREATE DATABASE [InventoryManagementSystem]
  CONTAINMENT = NONE
  ON  PRIMARY 
-( NAME = N'InventoryManangementSystem', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\InventoryManangementSystem.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+( NAME = N'InventoryManagementSystem', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\InventoryManagementSystem.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
  LOG ON 
-( NAME = N'InventoryManangementSystem_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\InventoryManangementSystem_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+( NAME = N'InventoryManagementSystem_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\InventoryManagementSystem_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
  WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
 GO
 ALTER DATABASE [InventoryManagementSystem] SET COMPATIBILITY_LEVEL = 160
@@ -84,62 +84,117 @@ ALTER DATABASE [InventoryManagementSystem] SET QUERY_STORE (OPERATION_MODE = REA
 GO
 USE [InventoryManagementSystem]
 GO
-/****** Object:  Table [dbo].[Tbl_Category]    Script Date: 6/17/2024 11:17:17 PM ******/
+/****** Object:  Table [dbo].[tbl_category]    Script Date: 8/5/2024 10:45:55 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Tbl_Category](
-	[CategoryName] [varchar](50) NOT NULL,
-	[CategoryId] [varchar](50) NOT NULL,
- CONSTRAINT [PK_Tbl_Category] PRIMARY KEY CLUSTERED 
+CREATE TABLE [dbo].[tbl_category](
+	[categoryId] [varchar](50) NOT NULL,
+	[categoryName] [varchar](50) NOT NULL,
+	[createdDateTime] [datetime] NOT NULL,
+	[updatedDateTime] [datetime] NULL,
+	[createdUserId] [varchar](50) NOT NULL,
+	[updatedUserId] [varchar](50) NULL,
+	[isDeleted] [int] NOT NULL,
+ CONSTRAINT [PK_tbl_category] PRIMARY KEY CLUSTERED 
 (
-	[CategoryId] ASC
+	[categoryId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Tbl_Item]    Script Date: 6/17/2024 11:17:17 PM ******/
+/****** Object:  Table [dbo].[tbl_item]    Script Date: 8/5/2024 10:45:55 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Tbl_Item](
+CREATE TABLE [dbo].[tbl_item](
 	[ItemName] [varchar](50) NOT NULL,
 	[ItemCategory] [varchar](50) NOT NULL,
-	[ItemPrice] [decimal](18, 0) NOT NULL,
-	[IteamAmount] [varchar](50) NOT NULL,
- CONSTRAINT [PK_Tbl_Item1] PRIMARY KEY CLUSTERED 
+	[ItemPrice] [decimal](18, 2) NOT NULL,
+	[ItemAmount] [varchar](50) NOT NULL,
+	[createdDateTime] [datetime] NOT NULL,
+	[createdUserId] [varchar](50) NOT NULL,
+	[updatedDateTime] [datetime] NULL,
+	[updatedUserId] [varchar](50) NULL,
+ CONSTRAINT [PK_tbl_item] PRIMARY KEY CLUSTERED 
 (
 	[ItemName] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Tbl_Order]    Script Date: 6/17/2024 11:17:17 PM ******/
+/****** Object:  Table [dbo].[tbl_order]    Script Date: 8/5/2024 10:45:55 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Tbl_Order](
-	[OrderId] [varchar](50) NOT NULL,
-	[OrderItemId] [varchar](50) NOT NULL,
-	[OrderItemPrice] [decimal](18, 2) NOT NULL,
-	[OrderItemAmount] [int] NOT NULL,
-	[OrderTotalPrice] [decimal](18, 2) NOT NULL
+CREATE TABLE [dbo].[tbl_order](
+	[orderId] [varchar](50) NOT NULL,
+	[orderDate] [datetime] NOT NULL,
+	[customerName] [varchar](50) NOT NULL,
+	[customerUserId] [nchar](10) NOT NULL,
+	[orderItemId] [varchar](50) NOT NULL,
+	[orderItemPrice] [nchar](10) NOT NULL,
+	[orderItemAmount] [nchar](10) NOT NULL,
+	[orderItemTotalPrice] [nchar](10) NOT NULL,
+	[isDeliveried] [int] NOT NULL,
+ CONSTRAINT [PK_Tbl_Order] PRIMARY KEY CLUSTERED 
+(
+	[orderId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-INSERT [dbo].[Tbl_Category] ([CategoryName], [CategoryId]) VALUES (N'Beer', N'BER1')
-INSERT [dbo].[Tbl_Category] ([CategoryName], [CategoryId]) VALUES (N'EnergyDrink', N'ED1')
-INSERT [dbo].[Tbl_Category] ([CategoryName], [CategoryId]) VALUES (N'Glass', N'GS2')
-INSERT [dbo].[Tbl_Category] ([CategoryName], [CategoryId]) VALUES (N'Tablet', N'TBL1')
-INSERT [dbo].[Tbl_Category] ([CategoryName], [CategoryId]) VALUES (N'Water', N'WR1')
+/****** Object:  Table [dbo].[tbl_orderInvoice]    Script Date: 8/5/2024 10:45:55 PM ******/
+SET ANSI_NULLS ON
 GO
-INSERT [dbo].[Tbl_Item] ([ItemName], [ItemCategory], [ItemPrice], [IteamAmount]) VALUES (N'ABC', N'BER1', CAST(2900 AS Decimal(18, 0)), N'1200')
-INSERT [dbo].[Tbl_Item] ([ItemName], [ItemCategory], [ItemPrice], [IteamAmount]) VALUES (N'Carabaung', N'ED1', CAST(10000 AS Decimal(18, 0)), N'100')
-INSERT [dbo].[Tbl_Item] ([ItemName], [ItemCategory], [ItemPrice], [IteamAmount]) VALUES (N'Henkieen', N'BER1', CAST(1850 AS Decimal(18, 0)), N'1912')
-INSERT [dbo].[Tbl_Item] ([ItemName], [ItemCategory], [ItemPrice], [IteamAmount]) VALUES (N'Lion', N'ED1', CAST(10000 AS Decimal(18, 0)), N'100')
-INSERT [dbo].[Tbl_Item] ([ItemName], [ItemCategory], [ItemPrice], [IteamAmount]) VALUES (N'Shark', N'ED1', CAST(10000 AS Decimal(18, 0)), N'98')
-INSERT [dbo].[Tbl_Item] ([ItemName], [ItemCategory], [ItemPrice], [IteamAmount]) VALUES (N'Speed', N'ED1', CAST(900 AS Decimal(18, 0)), N'98')
-INSERT [dbo].[Tbl_Item] ([ItemName], [ItemCategory], [ItemPrice], [IteamAmount]) VALUES (N'Tiger', N'BER1', CAST(4300 AS Decimal(18, 0)), N'120')
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tbl_orderInvoice](
+	[orderInvoiceId] [varchar](50) NOT NULL,
+	[orderId] [varchar](50) NOT NULL,
+	[invoiceDate] [datetime] NOT NULL,
+	[totalAmount] [decimal](18, 2) NOT NULL,
+ CONSTRAINT [PK_tbl_orderInvoice] PRIMARY KEY CLUSTERED 
+(
+	[orderInvoiceId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tbl_orderItem]    Script Date: 8/5/2024 10:45:55 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tbl_orderItem](
+	[orderItemId] [varchar](50) NOT NULL,
+	[orderId] [varchar](50) NOT NULL,
+	[itemId] [varchar](50) NOT NULL,
+	[quantity] [varchar](50) NOT NULL,
+	[price] [decimal](18, 2) NOT NULL,
+ CONSTRAINT [PK_tbl_orderItem] PRIMARY KEY CLUSTERED 
+(
+	[orderItemId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tbl_user]    Script Date: 8/5/2024 10:45:55 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tbl_user](
+	[usereId] [varchar](50) NOT NULL,
+	[userName] [varchar](50) NOT NULL,
+	[hashPassword] [varchar](50) NOT NULL,
+	[role] [varchar](50) NOT NULL,
+	[createdDateTime] [datetime] NOT NULL,
+	[updatedDateTime] [nchar](10) NULL,
+	[isDeleted] [int] NOT NULL,
+ CONSTRAINT [PK_Tbl_User] PRIMARY KEY CLUSTERED 
+(
+	[usereId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 USE [master]
 GO
