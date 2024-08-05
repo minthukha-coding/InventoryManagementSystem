@@ -12,4 +12,12 @@ public partial class TblItem
     public decimal ItemPrice { get; set; }
 
     public string ItemAmount { get; set; } = null!;
+
+    public DateTime CreatedDateTime { get; set; }
+
+    public string CreatedUserId { get; set; } = null!;
+
+    public DateTime? UpdatedDateTime { get; set; }
+
+    public string? UpdatedUserId { get; set; }
 }

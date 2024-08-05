@@ -21,6 +21,10 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<TblOrder> TblOrders { get; set; }
 
+    public virtual DbSet<TblOrderInvoice> TblOrderInvoices { get; set; }
+
+    public virtual DbSet<TblOrderItem> TblOrderItems { get; set; }
+
     public virtual DbSet<TblUser> TblUsers { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -50,6 +54,7 @@ public partial class AppDbContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("createdUserId");
+            entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
             entity.Property(e => e.UpdatedDateTime)
                 .HasColumnType("datetime")
                 .HasColumnName("updatedDateTime");
@@ -68,6 +73,13 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.ItemName)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.CreatedDateTime)
+                .HasColumnType("datetime")
+                .HasColumnName("createdDateTime");
+            entity.Property(e => e.CreatedUserId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("createdUserId");
             entity.Property(e => e.ItemAmount)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -75,6 +87,13 @@ public partial class AppDbContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.ItemPrice).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.UpdatedDateTime)
+                .HasColumnType("datetime")
+                .HasColumnName("updatedDateTime");
+            entity.Property(e => e.UpdatedUserId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("updatedUserId");
         });
 
         modelBuilder.Entity<TblOrder>(entity =>
@@ -87,10 +106,18 @@ public partial class AppDbContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("orderId");
+            entity.Property(e => e.CustomerName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("customerName");
+            entity.Property(e => e.CustomerUserId)
+                .HasMaxLength(10)
+                .IsFixedLength()
+                .HasColumnName("customerUserId");
             entity.Property(e => e.IsDeliveried).HasColumnName("isDeliveried");
-            entity.Property(e => e.OrderCreateDateTime)
+            entity.Property(e => e.OrderDate)
                 .HasColumnType("datetime")
-                .HasColumnName("orderCreateDateTime");
+                .HasColumnName("orderDate");
             entity.Property(e => e.OrderItemAmount)
                 .HasMaxLength(10)
                 .IsFixedLength()
@@ -107,10 +134,55 @@ public partial class AppDbContext : DbContext
                 .HasMaxLength(10)
                 .IsFixedLength()
                 .HasColumnName("orderItemTotalPrice");
-            entity.Property(e => e.OrderUserId)
-                .HasMaxLength(10)
-                .IsFixedLength()
-                .HasColumnName("orderUserId");
+        });
+
+        modelBuilder.Entity<TblOrderInvoice>(entity =>
+        {
+            entity.HasKey(e => e.OrderInvoiceId);
+
+            entity.ToTable("tbl_orderInvoice");
+
+            entity.Property(e => e.OrderInvoiceId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("orderInvoiceId");
+            entity.Property(e => e.InvoiceDate)
+                .HasColumnType("datetime")
+                .HasColumnName("invoiceDate");
+            entity.Property(e => e.OrderId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("orderId");
+            entity.Property(e => e.TotalAmount)
+                .HasColumnType("decimal(18, 2)")
+                .HasColumnName("totalAmount");
+        });
+
+        modelBuilder.Entity<TblOrderItem>(entity =>
+        {
+            entity.HasKey(e => e.OrderItemId);
+
+            entity.ToTable("tbl_orderItem");
+
+            entity.Property(e => e.OrderItemId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("orderItemId");
+            entity.Property(e => e.ItemId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("itemId");
+            entity.Property(e => e.OrderId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("orderId");
+            entity.Property(e => e.Price)
+                .HasColumnType("decimal(18, 2)")
+                .HasColumnName("price");
+            entity.Property(e => e.Quantity)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("quantity");
         });
 
         modelBuilder.Entity<TblUser>(entity =>
@@ -123,14 +195,22 @@ public partial class AppDbContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("usereId");
+            entity.Property(e => e.CreatedDateTime)
+                .HasColumnType("datetime")
+                .HasColumnName("createdDateTime");
             entity.Property(e => e.HashPassword)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("hashPassword");
+            entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
             entity.Property(e => e.Role)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("role");
+            entity.Property(e => e.UpdatedDateTime)
+                .HasMaxLength(10)
+                .IsFixedLength()
+                .HasColumnName("updatedDateTime");
             entity.Property(e => e.UserName)
                 .HasMaxLength(50)
                 .IsUnicode(false)

@@ -12,4 +12,10 @@ public partial class TblUser
     public string HashPassword { get; set; } = null!;
 
     public string Role { get; set; } = null!;
+
+    public DateTime CreatedDateTime { get; set; }
+
+    public string? UpdatedDateTime { get; set; }
+
+    public int IsDeleted { get; set; }
 }

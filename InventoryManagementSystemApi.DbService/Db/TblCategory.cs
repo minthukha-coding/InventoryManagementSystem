@@ -16,4 +16,6 @@ public partial class TblCategory
     public string CreatedUserId { get; set; } = null!;
 
     public string? UpdatedUserId { get; set; }
+
+    public int IsDeleted { get; set; }
 }
