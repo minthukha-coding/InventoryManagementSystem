@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace InventoryManagementSystemApi.Modles.Setup.Authenation;
 
-public class UserModel
+public class SignInRequestModel
 {
     public string UserName { get; set; }
     public string UserPassword { get; set; }
 }
+//public class SignInResponseModel
+//{
+//    public string accessToken { get; set; }
+//}
+public record class SignInResponseModel(string AccessToken);

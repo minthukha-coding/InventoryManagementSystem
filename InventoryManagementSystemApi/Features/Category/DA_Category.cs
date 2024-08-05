@@ -23,7 +23,7 @@ public class DA_Category
         try
         {
             var categories = await _db.TblCategories.ToListAsync();
-            if (categories.IsNullOrEmpty() || !categories.Any())
+            if (categories == null || categories.Count == 0)
             {
                 model = Result<CategoryListModel>.FailureResult(MessageResources.NotFound);
                 goto result;

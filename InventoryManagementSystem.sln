@@ -14,6 +14,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{3748EE43-6041-47E1-B1BB-7C486ABE7DF1}"
 	ProjectSection(SolutionItems) = preProject
 		ims_db_script.sql = ims_db_script.sql
+		scaffold.txt = scaffold.txt
 	EndProjectSection
 EndProject
 Global
