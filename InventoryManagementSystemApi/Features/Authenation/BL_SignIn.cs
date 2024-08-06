@@ -18,4 +18,11 @@ public class BL_SignIn
         model = await _daSignIn.SignIn(reqModel);
         return model;
     }
+    
+    public async Task<Result<string>> SignOut(string accessToken)
+    {
+        Result<string> model;
+        model = await _daSignIn.SignOut(accessToken);
+        return model;
+    }
 }
