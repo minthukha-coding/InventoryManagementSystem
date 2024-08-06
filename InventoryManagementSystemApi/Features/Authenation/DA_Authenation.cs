@@ -13,11 +13,13 @@ namespace InventoryManagementSystemApi.Features.Authenation;
 public class DA_Authenation
 {
     private readonly AppDbContext _db;
-    private readonly ILogger _logger; JwtTokenService _jwtTokenService;
-    public DA_Authenation(AppDbContext db, JwtTokenService jwtTokenService)
+    private readonly ILogger _logger; 
+    private readonly JwtTokenService _jwtTokenService;
+    public DA_Authenation(AppDbContext db, JwtTokenService jwtTokenService, ILogger logger)
     {
         _db = db;
         _jwtTokenService = jwtTokenService;
+        _logger = logger;
     }
 
     public async Task<Result<SignInResponseModel>> SignIn(SignInRequestModel reqModel)
