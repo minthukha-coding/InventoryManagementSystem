@@ -41,15 +41,24 @@ public class DA_SignIn
             UserPassword = item.HashPassword
         };
         string accessToken = _jwtTokenService
-            .GenerateJwtToken(reqModel.UserPassword,reqModel.UserPassword);
+            .GenerateJwtToken(reqModel.UserPassword, reqModel.UserPassword);
+
+        await SaveLogin(item, accessToken);
 
         model = Result<SignInResponseModel>.SuccessResult(new SignInResponseModel(accessToken));
 
     Result:
         return model;
     }
-    private async Task SaveLogin(string token)
+    private async Task SaveLogin(TblUser userData, string token)
     {
-
-    }
+        var login = new TblLogin()
+        {
+            UserId = userData.UsereId,
+            AccessToken = token,
+            LoginDate = DateTime.Now,
+        };
+        await _db.TblLogins.AddAsync(login);
+        await _db.SaveChangesAsync();
+}
 }
