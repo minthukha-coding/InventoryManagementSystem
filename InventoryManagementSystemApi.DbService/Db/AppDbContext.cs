@@ -96,26 +96,20 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<TblLogin>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("PK_tbl_login_1");
+
             entity.ToTable("tbl_login");
 
-            entity.Property(e => e.Id)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AccessToken)
-                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("accessToken");
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("email");
-            entity.Property(e => e.LoginDate)
-                .HasColumnType("datetime")
-                .HasColumnName("loginDate");
-            entity.Property(e => e.LogoutDate)
-                .HasColumnType("datetime")
-                .HasColumnName("logoutDate");
+            entity.Property(e => e.LoginDate).HasColumnName("loginDate");
+            entity.Property(e => e.LogoutDate).HasColumnName("logoutDate");
             entity.Property(e => e.Role)
                 .HasMaxLength(50)
                 .IsUnicode(false)
