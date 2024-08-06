@@ -48,4 +48,8 @@ public class DA_SignIn
     Result:
         return model;
     }
+    private async Task SaveLogin(string token)
+    {
+
+    }
 }
