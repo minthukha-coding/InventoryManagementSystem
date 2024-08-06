@@ -48,7 +48,7 @@ public static class ModularService
     private static IServiceCollection AddBusinessLogicServices(this IServiceCollection services)
     {
         services.AddScoped<Bl_Category>();
-        services.AddScoped<BL_SignIn>();
+        services.AddScoped<BL_Authenation>();
         return services;
     }
 
