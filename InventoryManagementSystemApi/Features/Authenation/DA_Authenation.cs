@@ -10,11 +10,11 @@ using System.Text;
 
 namespace InventoryManagementSystemApi.Features.Authenation;
 
-public class DA_SignIn
+public class DA_Authenation
 {
     private readonly AppDbContext _db;
     private readonly ILogger _logger; JwtTokenService _jwtTokenService;
-    public DA_SignIn(AppDbContext db, JwtTokenService jwtTokenService)
+    public DA_Authenation(AppDbContext db, JwtTokenService jwtTokenService)
     {
         _db = db;
         _jwtTokenService = jwtTokenService;

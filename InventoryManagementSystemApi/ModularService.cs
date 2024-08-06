@@ -41,7 +41,7 @@ public static class ModularService
         services.AddSingleton<IConfiguration>(configuration);
         services.AddSingleton<JwtSecurityTokenHandler>();
         services.AddScoped<JwtTokenService>();
-        services.AddScoped<DA_SignIn>();
+        services.AddScoped<DA_Authenation>();
         return services;
     }
 

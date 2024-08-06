@@ -5,9 +5,9 @@ namespace InventoryManagementSystemApi.Features.Authenation;
 
 public class BL_SignIn
 {
-    private readonly DA_SignIn _daSignIn;
+    private readonly DA_Authenation _daSignIn;
 
-    public BL_SignIn(DA_SignIn daSignIn)
+    public BL_SignIn(DA_Authenation daSignIn)
     {
         _daSignIn = daSignIn;
     }
