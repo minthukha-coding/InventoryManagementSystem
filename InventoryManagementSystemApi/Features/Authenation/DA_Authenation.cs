@@ -13,41 +13,53 @@ namespace InventoryManagementSystemApi.Features.Authenation;
 public class DA_Authenation
 {
     private readonly AppDbContext _db;
-    private readonly ILogger _logger; 
+    private readonly ILogger<DA_Authenation> _logger; 
     private readonly JwtTokenService _jwtTokenService;
-    public DA_Authenation(AppDbContext db, JwtTokenService jwtTokenService, ILogger logger)
+
+    public DA_Authenation(AppDbContext db,
+        ILogger<DA_Authenation> logger, 
+        JwtTokenService jwtTokenService)
     {
         _db = db;
-        _jwtTokenService = jwtTokenService;
         _logger = logger;
+        _jwtTokenService = jwtTokenService;
     }
 
     public async Task<Result<SignInResponseModel>> SignIn(SignInRequestModel reqModel)
     {
         Result<SignInResponseModel> model;
 
-        var item = await _db.TblUsers
-            .AsNoTracking()
-            .Where(x => x.UserName == reqModel.UserName &&
-                        x.HashPassword == reqModel.UserPassword)
-                        .FirstOrDefaultAsync();
-
-        if (item is null)
+        try
         {
-            model = Result<SignInResponseModel>.FailureResult("Login Failed.");
-            goto Result;
+            var item = await _db.TblUsers
+           .AsNoTracking()
+           .Where(x => x.UserName == reqModel.UserName &&
+                       x.HashPassword == reqModel.HashPassword)
+            .FirstOrDefaultAsync();
+            
+            if (item is null)
+            {
+                model = Result<SignInResponseModel>.FailureResult("Login Failed.");
+                goto Result;
+            }
+            var tokenModel = new AccessTokenRequestModel
+            {
+                UserName = item.UserName,
+                UserPassword = item.HashPassword
+            };
+            string accessToken = _jwtTokenService
+                .GenerateJwtToken(reqModel.UserName, reqModel.HashPassword);
+
+            await SaveLogin(item, accessToken);
+
+            model = Result<SignInResponseModel>.SuccessResult(new SignInResponseModel(accessToken));
         }
-        var tokenModel = new AccessTokenRequestModel
+        
+        catch (Exception)
         {
-            UserName = item.UserName,
-            UserPassword = item.HashPassword
-        };
-        string accessToken = _jwtTokenService
-            .GenerateJwtToken(reqModel.UserPassword, reqModel.UserPassword);
 
-        await SaveLogin(item, accessToken);
-
-        model = Result<SignInResponseModel>.SuccessResult(new SignInResponseModel(accessToken));
+            throw;
+        }
 
     Result:
         return model;
@@ -78,13 +90,21 @@ public class DA_Authenation
 
     private async Task SaveLogin(TblUser userData, string accessToken)
     {
-        var login = new TblLogin()
+        try
         {
-            UserId = userData.UsereId,
-            AccessToken = accessToken,
-            LoginDate = DateTime.Now,
-        };
-        await _db.TblLogins.AddAsync(login);
-        await _db.SaveChangesAsync();
+            var login = new TblLogin()
+            {
+                UserId = userData.UsereId,
+                AccessToken = accessToken,
+                LoginDate = DateTime.UtcNow,
+            };
+            await _db.TblLogins.AddAsync(login);
+            await _db.SaveChangesAsync();
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
     }
 }

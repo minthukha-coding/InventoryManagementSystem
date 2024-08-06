@@ -3,26 +3,26 @@ using InventoryManagementSystemApi.Shared;
 
 namespace InventoryManagementSystemApi.Features.Authenation;
 
-public class BL_SignIn
+public class BL_Authenation
 {
-    private readonly DA_Authenation _daSignIn;
+    private readonly DA_Authenation _daAuthenation;
 
-    public BL_SignIn(DA_Authenation daSignIn)
+    public BL_Authenation(DA_Authenation daAuthenation)
     {
-        _daSignIn = daSignIn;
+        _daAuthenation = daAuthenation;
     }
 
     public async Task<Result<SignInResponseModel>> SignIn(SignInRequestModel reqModel)
     {
         Result<SignInResponseModel> model;
-        model = await _daSignIn.SignIn(reqModel);
+        model = await _daAuthenation.SignIn(reqModel);
         return model;
     }
     
     public async Task<Result<string>> SignOut(string accessToken)
     {
         Result<string> model;
-        model = await _daSignIn.SignOut(accessToken);
+        model = await _daAuthenation.SignOut(accessToken);
         return model;
     }
 }
