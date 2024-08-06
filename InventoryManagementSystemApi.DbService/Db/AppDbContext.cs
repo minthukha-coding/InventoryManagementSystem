@@ -19,6 +19,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<TblItem> TblItems { get; set; }
 
+    public virtual DbSet<TblLogin> TblLogins { get; set; }
+
     public virtual DbSet<TblOrder> TblOrders { get; set; }
 
     public virtual DbSet<TblOrderInvoice> TblOrderInvoices { get; set; }
@@ -26,10 +28,6 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<TblOrderItem> TblOrderItems { get; set; }
 
     public virtual DbSet<TblUser> TblUsers { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=.;Database=InventoryManagementSystem;User ID=sa;Password=sasa@123;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -94,6 +92,38 @@ public partial class AppDbContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("updatedUserId");
+        });
+
+        modelBuilder.Entity<TblLogin>(entity =>
+        {
+            entity.ToTable("tbl_login");
+
+            entity.Property(e => e.Id)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("id");
+            entity.Property(e => e.AccessToken)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("accessToken");
+            entity.Property(e => e.Email)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("email");
+            entity.Property(e => e.LoginDate)
+                .HasColumnType("datetime")
+                .HasColumnName("loginDate");
+            entity.Property(e => e.LogoutDate)
+                .HasColumnType("datetime")
+                .HasColumnName("logoutDate");
+            entity.Property(e => e.Role)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("role");
+            entity.Property(e => e.UserId)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("userId");
         });
 
         modelBuilder.Entity<TblOrder>(entity =>
