@@ -50,15 +50,39 @@ public class DA_SignIn
     Result:
         return model;
     }
-    private async Task SaveLogin(TblUser userData, string token)
+
+    public async Task<Result<string>> SignOut(string accessToken)
+    {
+        Result<string> model;
+        var item = _db.TblLogins
+            .Where( x => x.AccessToken == accessToken )
+            .FirstOrDefault();
+        if(item is null )
+        {
+            model = Result<string>.FailureResult("SignOut fail -- AccessToken is not valid");
+            goto result;
+        }
+
+        item.LogoutDate = DateTime.Now;
+
+        _db.TblLogins.Update(item);
+        await _db.SaveChangesAsync();
+
+        model = Result<string>.SuccessResult("SignOut Success");
+
+    result:
+        return model;
+    }
+
+    private async Task SaveLogin(TblUser userData, string accessToken)
     {
         var login = new TblLogin()
         {
             UserId = userData.UsereId,
-            AccessToken = token,
+            AccessToken = accessToken,
             LoginDate = DateTime.Now,
         };
         await _db.TblLogins.AddAsync(login);
         await _db.SaveChangesAsync();
-}
+    }
 }
