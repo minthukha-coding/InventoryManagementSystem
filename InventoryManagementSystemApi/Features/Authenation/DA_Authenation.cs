@@ -103,7 +103,6 @@ public class DA_Authenation
         }
         catch (Exception)
         {
-
             throw;
         }
     }
