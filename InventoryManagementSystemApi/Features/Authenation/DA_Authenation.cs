@@ -50,7 +50,7 @@ public class DA_Authenation
             string accessToken = _jwtTokenService
                 .GenerateJwtToken(reqModel.UserName, reqModel.HashPassword);
 
-            await SaveLogin(item, accessToken);
+            //await SaveLogin(item, accessToken);
 
             model = Result<SignInResponseModel>.SuccessResult(new SignInResponseModel(accessToken));
         }
@@ -98,7 +98,7 @@ public class DA_Authenation
                 AccessToken = accessToken,
                 LoginDate = DateTime.UtcNow,
             };
-            await _db.TblLogins.AddAsync(login);
+            _db.TblLogins.Update(login);
             await _db.SaveChangesAsync();
         }
         catch (Exception)
