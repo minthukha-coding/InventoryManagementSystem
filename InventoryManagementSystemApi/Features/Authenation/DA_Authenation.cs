@@ -50,7 +50,7 @@ public class DA_Authenation
             string accessToken = _jwtTokenService
                 .GenerateJwtToken(reqModel.UserName, reqModel.HashPassword);
 
-            //await SaveLogin(item, accessToken);
+            await SaveLogin(item, accessToken);
 
             model = Result<SignInResponseModel>.SuccessResult(new SignInResponseModel(accessToken));
         }
