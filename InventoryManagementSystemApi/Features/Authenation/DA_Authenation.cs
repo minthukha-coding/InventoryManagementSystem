@@ -13,11 +13,11 @@ namespace InventoryManagementSystemApi.Features.Authenation;
 public class DA_Authenation
 {
     private readonly AppDbContext _db;
-    private readonly ILogger<DA_Authenation> _logger; 
+    private readonly ILogger<DA_Authenation> _logger;
     private readonly JwtTokenService _jwtTokenService;
 
     public DA_Authenation(AppDbContext db,
-        ILogger<DA_Authenation> logger, 
+        ILogger<DA_Authenation> logger,
         JwtTokenService jwtTokenService)
     {
         _db = db;
@@ -36,7 +36,7 @@ public class DA_Authenation
            .Where(x => x.UserName == reqModel.UserName &&
                        x.HashPassword == reqModel.HashPassword)
             .FirstOrDefaultAsync();
-            
+
             if (item is null)
             {
                 model = Result<SignInResponseModel>.FailureResult("Login Failed.");
@@ -54,10 +54,9 @@ public class DA_Authenation
 
             model = Result<SignInResponseModel>.SuccessResult(new SignInResponseModel(accessToken));
         }
-        
+
         catch (Exception)
         {
-
             throw;
         }
 
@@ -69,9 +68,9 @@ public class DA_Authenation
     {
         Result<string> model;
         var item = _db.TblLogins
-            .Where( x => x.AccessToken == accessToken )
+            .Where(x => x.AccessToken == accessToken)
             .FirstOrDefault();
-        if(item is null )
+        if (item is null)
         {
             model = Result<string>.FailureResult("SignOut fail -- AccessToken is not valid");
             goto result;
@@ -92,13 +91,16 @@ public class DA_Authenation
     {
         try
         {
-            var login = new TblLogin()
+            var login = new TblLogin
             {
                 UserId = userData.UsereId,
+                Role = userData.Role,
                 AccessToken = accessToken,
-                LoginDate = DateTime.UtcNow,
+                LoginDate = DateTime.Now,
+                Email = userData.UserName,
+                LogoutDate = DateTime.Now,
             };
-            _db.TblLogins.Update(login);
+            _db.TblLogins.Add(login);
             await _db.SaveChangesAsync();
         }
         catch (Exception)
