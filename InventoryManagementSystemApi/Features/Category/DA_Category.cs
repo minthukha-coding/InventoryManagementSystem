@@ -11,6 +11,7 @@ public class DA_Category
 {
     private readonly AppDbContext _db;
     private readonly ILogger<DA_Category> _logger;
+
     public DA_Category(AppDbContext db, ILogger<DA_Category> logger)
     {
         _db = db;
