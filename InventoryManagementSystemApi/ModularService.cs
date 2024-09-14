@@ -30,7 +30,8 @@ public static class ModularService
 
         services.AddDbContext<AppDbContext>(
             opt => { opt.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection") ?? throw new InvalidOperationException("connectionString is null")); },
-            ServiceLifetime.Scoped);
+            ServiceLifetime.Transient,
+            ServiceLifetime.Transient);
 
         return services;
     }
@@ -47,8 +48,8 @@ public static class ModularService
 
     private static IServiceCollection AddBusinessLogicServices(this IServiceCollection services)
     {
-        services.AddScoped<Bl_Category>();
         services.AddScoped<BL_Authenation>();
+        services.AddScoped<Bl_Category>();
         return services;
     }
 
