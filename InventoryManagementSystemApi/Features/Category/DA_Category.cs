@@ -2,6 +2,7 @@
 using InventoryManagementSystemApi.Modles.Resources;
 using InventoryManagementSystemApi.Modles.Setup.Category;
 using InventoryManagementSystemApi.Shared;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -71,8 +72,41 @@ public class DA_Category
         }
         catch (Exception ex)
         {
-            _logger.LogError("An error occurred while fetching the category create.");
+            _logger.LogError(ex.Message, "An error occurred while fetching the category create.");
             model = Result<CategoryModel>.FailureResult("An error occurred while fetching the category create.");
+        }
+    result:
+        return model;
+    }
+
+    public async Task<Result<string>> DeleteCategory(string id)
+    {
+        var model = new Result<string>();
+        try
+        {
+            var category = await _db.TblCategories
+                .FirstOrDefaultAsync(x => x.CategoryId == id);
+            if (category == null)
+            {
+                model = Result<string>.FailureResult(MessageResources.NotFound);
+                goto result;
+            }
+            _db.Remove(category);
+
+            var item = await _db.TblItems
+                .Where(x => x.ItemCategory == category.CategoryId)
+                .ToListAsync();
+            _db.RemoveRange(item);
+
+            var result = await _db.SaveChangesAsync();
+            model = result > 0
+                    ? Result<string>.SuccessResult("Success")
+                    : Result<string>.FailureResult("Fail");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, "An error occured while featching the category delete.");
+            model = Result<string>.FailureResult("An error occured while featching the category delete.");
         }
     result:
         return model;

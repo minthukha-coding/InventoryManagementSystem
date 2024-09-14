@@ -24,9 +24,9 @@ public class Bl_Category
         return model;
     }
 
-    public async Task<Result<CategoryListModel>> DeleteCategory(int id)
+    public async Task<Result<string>> DeleteCategory(string id)
     {
-        var model = await _category.GetCategoryList();
+        var model = await _category.DeleteCategory(id);
         return model;
     }
 }
