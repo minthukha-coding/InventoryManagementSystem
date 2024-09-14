@@ -23,4 +23,10 @@ public class Bl_Category
         var model = await _category.CreateCategory(reqModel);
         return model;
     }
+
+    public async Task<Result<CategoryListModel>> DeleteCategory(int id)
+    {
+        var model = await _category.GetCategoryList();
+        return model;
+    }
 }
