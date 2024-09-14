@@ -35,7 +35,7 @@ public static class ModularService
         return services;
     }
 
-    private static IServiceCollection AddDataAccessServices(this IServiceCollection services,IConfiguration configuration)
+    private static IServiceCollection AddDataAccessServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<DA_Category>();
         services.AddSingleton<IConfiguration>(configuration);
