@@ -32,7 +32,7 @@ public class CategoryController : ControllerBase
         return model;
     } 
     
-    [HttpPost("Create")]
+    [HttpPost("Delete")]
     public async Task<Result<string>> DeleteCategory(string id)
     {
         var model = await bl_Category.DeleteCategory(id);
