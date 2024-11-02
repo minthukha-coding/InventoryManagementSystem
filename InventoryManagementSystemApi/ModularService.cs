@@ -24,10 +24,6 @@ public static class ModularService
     private static IServiceCollection AddAppDbContextService(this IServiceCollection services,
         WebApplicationBuilder builder)
     {
-        //services.AddDbContext<AppDbContext>(
-        //    opt => { opt.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")); },
-        //    ServiceLifetime.Scoped); 
-
         services.AddDbContext<AppDbContext>(
             opt => { opt.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection") ?? throw new InvalidOperationException("connectionString is null")); },
             ServiceLifetime.Transient,

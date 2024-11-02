@@ -1,7 +1,7 @@
 ﻿using Azure.Core;
 using InventoryManagementSystemApi.DbService.Db;
 using InventoryManagementSystemApi.Modles.Setup.Authenation;
-using InventoryManagementSystemApi.Modles.Token;
+using InventoryManagementSystemApi.Modles.Setup.Token;
 using InventoryManagementSystemApi.Shared;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;

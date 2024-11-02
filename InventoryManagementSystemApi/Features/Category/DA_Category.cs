@@ -1,6 +1,6 @@
 ﻿using InventoryManagementSystemApi.DbService.Db;
-using InventoryManagementSystemApi.Modles.Resources;
 using InventoryManagementSystemApi.Modles.Setup.Category;
+using InventoryManagementSystemApi.Modles.Setup.Resources;
 using InventoryManagementSystemApi.Shared;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿namespace InventoryManagementSystemApi.Modles.Resources;
+﻿namespace InventoryManagementSystemApi.Modles.Setup.Resources;
 
 public static class MessageResources
 {
