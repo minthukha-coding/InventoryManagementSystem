@@ -29,4 +29,8 @@ public class Bl_Category
         var model = await _category.DeleteCategory(id);
         return model;
     }
+
+    public async Task<Result<CategoryModel> UpdateCategory(CategoryModel reqModel)
+    {
+    }
 }

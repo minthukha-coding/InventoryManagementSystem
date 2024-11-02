@@ -33,12 +33,17 @@ public class DA_Category
 
             model = Result<CategoryListModel>.SuccessResult(new CategoryListModel
             {
-                Data = categories.Select(c => new CategoryModel
-                {
-                    CategoryId = c.CategoryId,
-                    CategoryName = c.CategoryName
-                }).ToList()
+                Data = categories.Change()
             });
+
+            //model = Result<CategoryListModel>.SuccessResult(new CategoryListModel
+            //{
+            //    Data = categories.Select(c => new CategoryModel
+            //    {
+            //        CategoryId = c.CategoryId,
+            //        CategoryName = c.CategoryName
+            //    }).ToList()
+            //});
         }
         catch (Exception ex)
         {
