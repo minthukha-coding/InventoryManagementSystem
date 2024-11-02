@@ -17,6 +17,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 		scaffold.txt = scaffold.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{F1C7D763-ED6F-4AD8-BBF4-4AB169E63E8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagementSystem.Mapper", "InventoryManagementSystem.Mapper\InventoryManagementSystem.Mapper.csproj", "{FB75B340-6D24-44A9-93DA-8809E5952F29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,9 +43,17 @@ Global
 		{AFDFF980-B605-43B7-B3D8-11B164EE539F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFDFF980-B605-43B7-B3D8-11B164EE539F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFDFF980-B605-43B7-B3D8-11B164EE539F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB75B340-6D24-44A9-93DA-8809E5952F29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB75B340-6D24-44A9-93DA-8809E5952F29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB75B340-6D24-44A9-93DA-8809E5952F29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB75B340-6D24-44A9-93DA-8809E5952F29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F3EFA7FF-8C1F-4206-9497-5F39A19949A2} = {F1C7D763-ED6F-4AD8-BBF4-4AB169E63E8D}
+		{FB75B340-6D24-44A9-93DA-8809E5952F29} = {F1C7D763-ED6F-4AD8-BBF4-4AB169E63E8D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {317DCD41-549C-4479-AEA9-B2ABBD6A9640}

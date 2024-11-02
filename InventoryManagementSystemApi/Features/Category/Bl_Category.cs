@@ -30,7 +30,7 @@ public class Bl_Category
         return model;
     }
 
-    public async Task<Result<CategoryModel> UpdateCategory(CategoryModel reqModel)
-    {
-    }
+    //public async Task<Result<CategoryModel> UpdateCategory(CategoryModel reqModel)
+    //{
+    //}
 }
