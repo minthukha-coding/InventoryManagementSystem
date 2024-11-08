@@ -22,7 +22,7 @@ public class JwtTokenService
         _tokenHandler = tokenHandler;
     }
 
-    public string GenerateJwtToken(string userName,string password)
+    public string GenerateJwtToken(string userName, string password)
     {
         //var key = Encoding.ASCII.GetBytes(_configuration["Jwt:SecretKey"]);
         var key = Encoding.ASCII.GetBytes("your_very_long_secret_key_1234567890");

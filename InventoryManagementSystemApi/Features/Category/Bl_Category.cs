@@ -17,7 +17,7 @@ public class Bl_Category
         var model = await _category.GetCategoryList();
         return model;
     }
-    
+
     public async Task<Result<CategoryModel>> CreateCategory(CategoryModel reqModel)
     {
         var model = await _category.CreateCategory(reqModel);
