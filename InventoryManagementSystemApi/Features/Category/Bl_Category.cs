@@ -1,4 +1,4 @@
-﻿using InventoryManagementSystemApi.Modles.Setup.Category;
+﻿using InventoryManagementSystemApi.Modles.Category;
 using InventoryManagementSystemApi.Shared;
 
 namespace InventoryManagementSystemApi.Features.Category;

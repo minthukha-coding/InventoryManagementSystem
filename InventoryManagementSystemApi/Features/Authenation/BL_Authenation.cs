@@ -1,4 +1,4 @@
-﻿using InventoryManagementSystemApi.Modles.Setup.Authenation;
+﻿using InventoryManagementSystemApi.Modles.Authenation;
 using InventoryManagementSystemApi.Shared;
 
 namespace InventoryManagementSystemApi.Features.Authenation;
@@ -25,4 +25,11 @@ public class BL_Authenation
         model = await _daAuthenation.SignOut(accessToken);
         return model;
     }
+
+    public async Task<Result<string>> Register(RegisterRequestModel reqModel)
+    {
+        Result<string> result = await _daAuthenation.Register(reqModel);
+        return result;
+    }
+
 }

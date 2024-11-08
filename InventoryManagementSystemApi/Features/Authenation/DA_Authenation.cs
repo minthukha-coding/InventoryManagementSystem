@@ -1,6 +1,6 @@
 ﻿using Azure.Core;
 using InventoryManagementSystemApi.DbService.Db;
-using InventoryManagementSystemApi.Modles.Setup.Authenation;
+using InventoryManagementSystemApi.Modles.Authenation;
 using InventoryManagementSystemApi.Modles.Setup.Token;
 using InventoryManagementSystemApi.Shared;
 using System.Data;
@@ -25,10 +25,52 @@ public class DA_Authenation
         _jwtTokenService = jwtTokenService;
     }
 
+    public async Task<Result<string>> Register(RegisterRequestModel reqModel)
+    {
+        Result<string> result;
+
+        try
+        {
+            var existingUser = await _db.TblUsers
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.UserName == reqModel.UserName);
+
+            if (existingUser != null)
+            {
+                result = Result<string>.FailureResult("Username already exists.");
+                return result;
+            }
+
+            // need to add hash function 
+            string hashedPassword = reqModel.Password;
+
+            var newUser = new TblUser
+            {
+                UsereId = Guid.NewGuid().ToString(),
+                UserName = reqModel.UserName,
+                HashPassword = hashedPassword,
+                Role = reqModel.Role,
+                CreatedDateTime = DateTime.Now,
+                IsDeleted = 0
+            };
+
+            _db.TblUsers.Add(newUser);
+            await _db.SaveChangesAsync();
+
+            result = Result<string>.SuccessResult("User registered successfully.");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error occurred while registering user.");
+            result = Result<string>.FailureResult("Registration failed due to an internal error.");
+        }
+
+        return result;
+    }
+
     public async Task<Result<SignInResponseModel>> SignIn(SignInRequestModel reqModel)
     {
         Result<SignInResponseModel> model;
-
         try
         {
             var item = await _db.TblUsers
@@ -54,7 +96,6 @@ public class DA_Authenation
 
             model = Result<SignInResponseModel>.SuccessResult(new SignInResponseModel(accessToken));
         }
-
         catch (Exception)
         {
             throw;
@@ -87,6 +128,8 @@ public class DA_Authenation
         return model;
     }
 
+    #region SaveLogin
+
     private async Task SaveLogin(TblUser userData, string accessToken)
     {
         try
@@ -108,4 +151,6 @@ public class DA_Authenation
             throw;
         }
     }
+
+    #endregion
 }

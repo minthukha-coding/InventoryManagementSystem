@@ -1,5 +1,5 @@
 using InventoryManagementSystemApi.DbService.Db;
-using InventoryManagementSystemApi.Modles.Setup.Category;
+using InventoryManagementSystemApi.Modles.Category;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿using InventoryManagementSystemApi.Modles.Setup.Authenation;
+﻿using InventoryManagementSystemApi.Modles.Authenation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
@@ -38,6 +38,21 @@ public class AuthenationController : ControllerBase
         try
         {
             var model = await _authenation.SignOut(accessToken);
+            return Ok(model);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
+        }
+    }
+
+    [HttpPost("/register")]
+
+    public async Task<IActionResult> Register(RegisterRequestModel reqModel)
+    {
+        try
+        {
+            var model = await _authenation.Register(reqModel);
             return Ok(model);
         }
         catch (Exception ex)

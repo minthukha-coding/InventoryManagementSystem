@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InventoryManagementSystemApi.Modles.Setup.Category;
+namespace InventoryManagementSystemApi.Modles.Category;
 
 public class CategoryModel
 {
