@@ -1,14 +1,4 @@
-﻿using Azure.Core;
-using InventoryManagementSystemApi.DbService.Db;
-using InventoryManagementSystemApi.Modles.Authenation;
-using InventoryManagementSystemApi.Modles.Setup.Token;
-using InventoryManagementSystemApi.Shared;
-using System.Data;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-
-namespace InventoryManagementSystemApi.Features.Authenation;
+﻿namespace InventoryManagementSystemApi.Features.Authenation;
 
 public class DA_Authenation
 {

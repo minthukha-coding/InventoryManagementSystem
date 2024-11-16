@@ -1,7 +1,4 @@
-﻿using InventoryManagementSystemApi.Modles.Authenation;
-using InventoryManagementSystemApi.Shared;
-
-namespace InventoryManagementSystemApi.Features.Authenation;
+﻿namespace InventoryManagementSystemApi.Features.Authenation;
 
 public class BL_Authenation
 {

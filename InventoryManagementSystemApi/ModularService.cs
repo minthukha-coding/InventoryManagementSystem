@@ -1,7 +1,6 @@
 using InventoryManagementSystemApi.DbService.Db;
 using InventoryManagementSystemApi.Features.Authenation;
 using InventoryManagementSystemApi.Features.Category;
-using InventoryManagementSystemApi.Shared;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;

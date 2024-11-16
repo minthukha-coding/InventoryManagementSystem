@@ -1,5 +1,4 @@
 ﻿using InventoryManagementSystemApi.Modles.Category;
-using InventoryManagementSystemApi.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

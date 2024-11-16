@@ -1,11 +1,4 @@
-﻿using InventoryManagementSystemApi.Modles.Authenation;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-
-namespace InventoryManagementSystemApi.Features.Authenation;
+﻿namespace InventoryManagementSystemApi.Features.Authenation;
 
 [Route("api/authenation")]
 [ApiController]
