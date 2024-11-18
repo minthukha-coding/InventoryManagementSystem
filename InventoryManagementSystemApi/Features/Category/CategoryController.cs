@@ -1,7 +1,5 @@
 ﻿using InventoryManagementSystemApi.Modles.Category;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryManagementSystemApi.Features.Category;
 
@@ -30,7 +28,7 @@ public class CategoryController : ControllerBase
         var model = await bl_Category.CreateCategory(reqModel);
         return model;
     } 
-    
+
     [HttpPost("Delete")]
     public async Task<Result<string>> DeleteCategory(string id)
     {

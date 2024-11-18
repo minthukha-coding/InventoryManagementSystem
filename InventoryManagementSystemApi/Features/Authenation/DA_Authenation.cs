@@ -31,18 +31,19 @@ public class DA_Authenation
                 return result;
             }
 
-            // need to add hash function 
-            string hashedPassword = reqModel.Password;
+            string pasword = reqModel.Password;
 
             var newUser = new TblUser
             {
                 UsereId = Guid.NewGuid().ToString(),
                 UserName = reqModel.UserName,
-                HashPassword = hashedPassword,
+                HashPassword = pasword,
                 Role = reqModel.Role,
                 CreatedDateTime = DateTime.Now,
                 IsDeleted = 0
             };
+
+            newUser.HashPassword = pasword.ToSHA256HexHashString(newUser.UsereId);
 
             _db.TblUsers.Add(newUser);
             await _db.SaveChangesAsync();
@@ -63,17 +64,26 @@ public class DA_Authenation
         Result<SignInResponseModel> model;
         try
         {
+
             var item = await _db.TblUsers
-           .AsNoTracking()
-           .Where(x => x.UserName == reqModel.UserName &&
-                       x.HashPassword == reqModel.HashPassword)
-            .FirstOrDefaultAsync();
+                       .AsNoTracking()
+                       .Where(x => x.UserName == reqModel.UserName)
+                       .FirstOrDefaultAsync();
 
             if (item is null)
             {
                 model = Result<SignInResponseModel>.FailureResult("Login Failed.");
                 goto Result;
             }
+
+            var hashPass = reqModel.HashPassword.ToSHA256HexHashString(item.UsereId);
+
+            if(item.HashPassword != hashPass)
+            {
+                model = Result<SignInResponseModel>.FailureResult("Password Failed");
+                goto Result;
+            }
+
             var tokenModel = new AccessTokenRequestModel
             {
                 UserName = item.UserName,

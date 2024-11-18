@@ -28,7 +28,6 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<TblOrderItem> TblOrderItems { get; set; }
 
     public virtual DbSet<TblUser> TblUsers { get; set; }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TblCategory>(entity =>
@@ -223,7 +222,7 @@ public partial class AppDbContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("createdDateTime");
             entity.Property(e => e.HashPassword)
-                .HasMaxLength(50)
+                .HasMaxLength(250)
                 .IsUnicode(false)
                 .HasColumnName("hashPassword");
             entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
