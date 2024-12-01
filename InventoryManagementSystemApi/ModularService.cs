@@ -1,13 +1,3 @@
-using InventoryManagementSystemApi.DbService.Db;
-using InventoryManagementSystemApi.Features.Authenation;
-using InventoryManagementSystemApi.Features.Category;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.OpenApi.Models;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text;
-
 namespace InventoryManagementSystemApi;
 
 public static class ModularService
