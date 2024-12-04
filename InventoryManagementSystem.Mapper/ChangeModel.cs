@@ -10,4 +10,4 @@ public static class ChangeModel
            CategoryName = category.CategoryName,
         }).ToList();
     }
-}
+} 
