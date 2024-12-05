@@ -1,4 +1,4 @@
-﻿namespace InventoryManagementSystemApi.Features.Authenation;
+namespace InventoryManagementSystemApi.Features.Authenation;
 
 public class BL_Authenation
 {
@@ -7,7 +7,7 @@ public class BL_Authenation
     public BL_Authenation(DA_Authenation daAuthenation)
     {
         _daAuthenation = daAuthenation;
-    }
+    } 
 
     public async Task<Result<SignInResponseModel>> SignIn(SignInRequestModel reqModel)
     {
