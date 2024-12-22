@@ -1,9 +1,6 @@
-﻿using InventoryManagementSystemApi.DbService.Db;
+﻿using InventoryManagementSystem.Mapper;
 using InventoryManagementSystemApi.Modles.Category;
 using InventoryManagementSystemApi.Modles.Setup.Resources;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Collections.Generic;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace InventoryManagementSystemApi.Features.Category;
 
@@ -34,22 +31,32 @@ public class DA_Category
             {
                 Data = categories.Change()
             });
-
-            //model = Result<CategoryListModel>.SuccessResult(new CategoryListModel
-            //{
-            //    Data = categories.Select(c => new CategoryModel
-            //    {
-            //        CategoryId = c.CategoryId,
-            //        CategoryName = c.CategoryName
-            //    }).ToList()
-            //});
         }
         catch (Exception ex)
         {
             _logger.LogError(ex.Message, "An error occurred while fetching the category list.");
             model = Result<CategoryListModel>.FailureResult("An error occurred while fetching the category list.");
         }
-    result:
+
+        result:
+        return model;
+    }
+
+    public async Task<Result<CategoryModel>> GetCategoryById(string id)
+    {
+        var model = new Result<CategoryModel>();
+        try
+        {
+            var item = await _db.TblCategories.FirstOrDefaultAsync(x => x.CategoryId == id);
+            if (item is null) model = Result<CategoryModel>.FailureResult(MessageResources.NotFound);
+            model = Result<CategoryModel>.SuccessResult(item!.Change());
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, "An error occurred while fetching the category.");
+            model = Result<CategoryModel>.FailureResult("An error occurred while fetching the category.");
+        }
+
         return model;
     }
 
@@ -65,10 +72,13 @@ public class DA_Category
                 model = Result<CategoryModel>.FailureResult(MessageResources.Duplicate);
                 goto result;
             }
-            var item = new TblCategory()
+
+            var item = new TblCategory
             {
                 CategoryId = reqModel.CategoryId,
                 CategoryName = reqModel.CategoryName,
+                CreatedUserId = DevCode.GenerateGuid(),
+                CreatedDateTime = DevCode.GetServerDateTime()
             };
             await _db.TblCategories.AddAsync(item);
             var result = await _db.SaveChangesAsync();
@@ -79,7 +89,8 @@ public class DA_Category
             _logger.LogError(ex.Message, "An error occurred while fetching the category create.");
             model = Result<CategoryModel>.FailureResult("An error occurred while fetching the category create.");
         }
-    result:
+
+        result:
         return model;
     }
 
@@ -95,6 +106,7 @@ public class DA_Category
                 model = Result<string>.FailureResult(MessageResources.NotFound);
                 goto result;
             }
+
             _db.Remove(category);
 
             var item = await _db.TblItems
@@ -104,15 +116,16 @@ public class DA_Category
 
             var result = await _db.SaveChangesAsync();
             model = result > 0
-                    ? Result<string>.SuccessResult("Success")
-                    : Result<string>.FailureResult("Fail");
+                ? Result<string>.SuccessResult("Success")
+                : Result<string>.FailureResult("Fail");
         }
         catch (Exception ex)
         {
             _logger.LogError(ex.Message, "An error occured while featching the category delete.");
             model = Result<string>.FailureResult("An error occured while featching the category delete.");
         }
-    result:
+
+        result:
         return model;
     }
 }

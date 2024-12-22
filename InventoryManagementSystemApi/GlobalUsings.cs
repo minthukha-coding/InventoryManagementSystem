@@ -2,7 +2,6 @@
 
 global using System.IdentityModel.Tokens.Jwt;
 global using System.Text;
-global using InventoryManagementSystemApi.Modles.Authenation;
 global using InventoryManagementSystemApi.Shared;
 global using InventoryManagementSystemApi.DbService.Db;
 global using InventoryManagementSystemApi.Modles.Setup.Token;

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace InventoryManagementSystemApi.DbService.Db;
 
-namespace InventoryManagementSystemApi.DbService.Db;
-
-public partial class TblUser
+public class TblUser
 {
     public string UsereId { get; set; } = null!;
 

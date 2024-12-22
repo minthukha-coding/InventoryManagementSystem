@@ -1,4 +1,4 @@
-﻿namespace InventoryManagementSystemApi.Shared;
+﻿namespace InventoryManagementSystemApi.Shared.Service;
 
 public class JwtTokenService
 {
@@ -21,10 +21,11 @@ public class JwtTokenService
             Subject = new ClaimsIdentity(new[]
             {
                 new Claim(ClaimTypes.Name, userName),
-                new Claim(ClaimTypes.Email, password),
+                new Claim(ClaimTypes.Email, password)
             }),
-            Expires = DateTime.UtcNow.AddHours(1),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            Expires = DevCode.GetServerDateTime().AddHours(1),
+            SigningCredentials =
+                new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
 
         var token = _tokenHandler.CreateToken(tokenDescriptor);
@@ -46,7 +47,7 @@ public class JwtTokenService
 
         try
         {
-            var principal = _tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken validatedToken);
+            var principal = _tokenHandler.ValidateToken(token, tokenValidationParameters, out var validatedToken);
             return principal;
         }
         catch

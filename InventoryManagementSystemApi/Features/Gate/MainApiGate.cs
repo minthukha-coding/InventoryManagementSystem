@@ -1,6 +1,5 @@
-﻿namespace InventoryManagementSystemApi.Features.Gate
+﻿namespace InventoryManagementSystemApi.Features.Gate;
+
+public class MainApiGate
 {
-    public class MainApiGate
-    {
-    }
 }

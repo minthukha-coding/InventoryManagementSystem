@@ -41,7 +41,7 @@ public class Result<T>
 
     public static Result<T> ExecuteResult(int result)
     {
-        return result > 0 ? Result<T>.SuccessResult() : Result<T>.FailureResult("Operation Failed");
+        return result > 0 ? SuccessResult() : FailureResult("Operation Failed");
     }
 
     public static Result<T> BadRequestResult(string message)

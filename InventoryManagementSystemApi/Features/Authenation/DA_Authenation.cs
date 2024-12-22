@@ -1,12 +1,16 @@
-﻿namespace InventoryManagementSystemApi.Features.Authenation;
+﻿using InventoryManagementSystemApi.Modles.Setup.Authenation;
+using InventoryManagementSystemApi.Shared.Service;
+
+namespace InventoryManagementSystemApi.Features.Authenation;
 
 public class DA_Authenation
 {
     private readonly AppDbContext _db;
-    private readonly ILogger<DA_Authenation> _logger;
     private readonly JwtTokenService _jwtTokenService;
+    private readonly ILogger<DA_Authenation> _logger;
 
-    public DA_Authenation(AppDbContext db,
+    public DA_Authenation(
+        AppDbContext db,
         ILogger<DA_Authenation> logger,
         JwtTokenService jwtTokenService)
     {
@@ -31,7 +35,7 @@ public class DA_Authenation
                 return result;
             }
 
-            string pasword = reqModel.Password;
+            var pasword = reqModel.Password;
 
             var newUser = new TblUser
             {
@@ -62,46 +66,38 @@ public class DA_Authenation
     public async Task<Result<SignInResponseModel>> SignIn(SignInRequestModel reqModel)
     {
         Result<SignInResponseModel> model;
-        try
+        var item = await _db.TblUsers
+            .AsNoTracking()
+            .Where(x => x.UserName == reqModel.UserName)
+            .FirstOrDefaultAsync();
+
+        if (item is null)
         {
-
-            var item = await _db.TblUsers
-                       .AsNoTracking()
-                       .Where(x => x.UserName == reqModel.UserName)
-                       .FirstOrDefaultAsync();
-
-            if (item is null)
-            {
-                model = Result<SignInResponseModel>.FailureResult("Login Failed.");
-                goto Result;
-            }
-
-            var hashPass = reqModel.HashPassword.ToSHA256HexHashString(item.UsereId);
-
-            if(item.HashPassword != hashPass)
-            {
-                model = Result<SignInResponseModel>.FailureResult("Password Failed");
-                goto Result;
-            }
-
-            var tokenModel = new AccessTokenRequestModel
-            {
-                UserName = item.UserName,
-                UserPassword = item.HashPassword
-            };
-            string accessToken = _jwtTokenService
-                .GenerateJwtToken(reqModel.UserName, reqModel.HashPassword);
-
-            await SaveLogin(item, accessToken);
-
-            model = Result<SignInResponseModel>.SuccessResult(new SignInResponseModel(accessToken));
-        }
-        catch (Exception)
-        {
-            throw;
+            model = Result<SignInResponseModel>.FailureResult("Login Failed.");
+            goto Result;
         }
 
-    Result:
+        var hashPass = reqModel.HashPassword.ToSHA256HexHashString(item.UsereId);
+
+        if (item.HashPassword != hashPass)
+        {
+            model = Result<SignInResponseModel>.FailureResult("Password Failed");
+            goto Result;
+        }
+
+        var tokenRequestModel = new AccessTokenRequestModel
+        {
+            UserName = item.UserName,
+            UserPassword = item.HashPassword
+        };
+        var accessToken = _jwtTokenService
+            .GenerateJwtToken(reqModel.UserName, reqModel.HashPassword);
+
+        await SaveLogin(item, accessToken);
+
+        model = Result<SignInResponseModel>.SuccessResult(new SignInResponseModel(accessToken));
+
+        Result:
         return model;
     }
 
@@ -124,7 +120,7 @@ public class DA_Authenation
 
         model = Result<string>.SuccessResult("SignOut Success");
 
-    result:
+        result:
         return model;
     }
 
@@ -132,24 +128,17 @@ public class DA_Authenation
 
     private async Task SaveLogin(TblUser userData, string accessToken)
     {
-        try
+        var login = new TblLogin
         {
-            var login = new TblLogin
-            {
-                UserId = userData.UsereId,
-                Role = userData.Role,
-                AccessToken = accessToken,
-                LoginDate = DateTime.Now,
-                Email = userData.UserName,
-                LogoutDate = DateTime.Now,
-            };
-            _db.TblLogins.Add(login);
-            await _db.SaveChangesAsync();
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+            UserId = userData.UsereId,
+            Role = userData.Role,
+            AccessToken = accessToken,
+            LoginDate = DateTime.Now,
+            Email = userData.UserName,
+            LogoutDate = DateTime.Now
+        };
+        _db.TblLogins.Add(login);
+        await _db.SaveChangesAsync();
     }
 
     #endregion

@@ -1,3 +1,5 @@
+using InventoryManagementSystemApi.Modles.Setup.Authenation;
+
 namespace InventoryManagementSystemApi.Features.Authenation;
 
 public class BL_Authenation
@@ -7,7 +9,7 @@ public class BL_Authenation
     public BL_Authenation(DA_Authenation daAuthenation)
     {
         _daAuthenation = daAuthenation;
-    } 
+    }
 
     public async Task<Result<SignInResponseModel>> SignIn(SignInRequestModel reqModel)
     {
@@ -15,7 +17,7 @@ public class BL_Authenation
         model = await _daAuthenation.SignIn(reqModel);
         return model;
     }
-    
+
     public async Task<Result<string>> SignOut(string accessToken)
     {
         Result<string> model;
@@ -25,8 +27,7 @@ public class BL_Authenation
 
     public async Task<Result<string>> Register(RegisterRequestModel reqModel)
     {
-        Result<string> result = await _daAuthenation.Register(reqModel);
+        var result = await _daAuthenation.Register(reqModel);
         return result;
     }
-
 }

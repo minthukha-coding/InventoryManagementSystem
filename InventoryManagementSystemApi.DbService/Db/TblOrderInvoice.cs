@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace InventoryManagementSystemApi.DbService.Db;
 
-namespace InventoryManagementSystemApi.DbService.Db;
-
-public partial class TblOrderInvoice
+public class TblOrderInvoice
 {
     public string OrderInvoiceId { get; set; } = null!;
 

@@ -17,6 +17,12 @@ public class Bl_Category
         return model;
     }
 
+    public async Task<Result<CategoryModel>> GetCategoryById(string id)
+    {
+        var model = await _category.GetCategoryById(id);
+        return model;
+    }
+
     public async Task<Result<CategoryModel>> CreateCategory(CategoryModel reqModel)
     {
         var model = await _category.CreateCategory(reqModel);
@@ -28,8 +34,4 @@ public class Bl_Category
         var model = await _category.DeleteCategory(id);
         return model;
     }
-
-    //public async Task<Result<CategoryModel> UpdateCategory(CategoryModel reqModel)
-    //{
-    //}
 }

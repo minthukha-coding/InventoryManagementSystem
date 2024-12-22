@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace InventoryManagementSystemApi.Modles.Common;
 
-namespace InventoryManagementSystemApi.Modles.Common
+internal class ApiRequestModel
 {
-    internal class ApiRequestModel
-    {
-    }
 }

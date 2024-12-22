@@ -1,3 +1,5 @@
+using InventoryManagementSystemApi.Shared.Service;
+
 namespace InventoryManagementSystemApi;
 
 public static class ModularService
@@ -15,17 +17,22 @@ public static class ModularService
         WebApplicationBuilder builder)
     {
         services.AddDbContext<AppDbContext>(
-            opt => { opt.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection") ?? throw new InvalidOperationException("connectionString is null")); },
+            opt =>
+            {
+                opt.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection") ??
+                                 throw new InvalidOperationException("connectionString is null"));
+            },
             ServiceLifetime.Transient,
             ServiceLifetime.Transient);
 
         return services;
     }
 
-    private static IServiceCollection AddDataAccessServices(this IServiceCollection services, IConfiguration configuration)
+    private static IServiceCollection AddDataAccessServices(this IServiceCollection services,
+        IConfiguration configuration)
     {
         services.AddScoped<DA_Category>();
-        services.AddSingleton<IConfiguration>(configuration);
+        services.AddSingleton(configuration);
         services.AddSingleton<JwtSecurityTokenHandler>();
         services.AddScoped<JwtTokenService>();
         services.AddScoped<DA_Authenation>();
@@ -54,40 +61,40 @@ public static class ModularService
                 Scheme = "Bearer"
             });
             option.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
                 {
+                    new OpenApiSecurityScheme
                     {
-                        new OpenApiSecurityScheme
+                        Reference = new OpenApiReference
                         {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
-                        },
-                       new List<string> ()
-                    }
-                });
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    new List<string>()
+                }
+            });
         });
 
         var key = Encoding.ASCII.GetBytes("HQfsdfQ@C1"); // Use a secret key for encoding the token
 
         services.AddAuthentication(x =>
-        {
-            x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-        .AddJwtBearer(x =>
-        {
-            x.RequireHttpsMetadata = false;
-            x.SaveToken = true;
-            x.TokenValidationParameters = new TokenValidationParameters
             {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false
-            };
-        });
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
         services.AddAuthorization();
         return services;
     }

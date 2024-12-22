@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InventoryManagementSystemApi.Modles.Setup.Token;
+﻿namespace InventoryManagementSystemApi.Modles.Setup.Token;
 
 public class AccessTokenRequestModel
 {

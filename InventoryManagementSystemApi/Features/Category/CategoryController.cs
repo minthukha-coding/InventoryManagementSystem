@@ -9,7 +9,7 @@ namespace InventoryManagementSystemApi.Features.Category;
 public class CategoryController : ControllerBase
 {
     private readonly Bl_Category bl_Category;
-    
+
     public CategoryController(Bl_Category bl_Category)
     {
         this.bl_Category = bl_Category;
@@ -22,12 +22,19 @@ public class CategoryController : ControllerBase
         return model;
     }
 
+    [HttpPost("Edit")]
+    public async Task<Result<CategoryModel>> GetCategoryById(string id)
+    {
+        var model = await bl_Category.GetCategoryById(id);
+        return model;
+    }
+
     [HttpPost("Create")]
     public async Task<Result<CategoryModel>> CreateCategory(CategoryModel reqModel)
     {
         var model = await bl_Category.CreateCategory(reqModel);
         return model;
-    } 
+    }
 
     [HttpPost("Delete")]
     public async Task<Result<string>> DeleteCategory(string id)

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagementSystemApi.DbService.Db;
 
@@ -28,6 +26,7 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<TblOrderItem> TblOrderItems { get; set; }
 
     public virtual DbSet<TblUser> TblUsers { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TblCategory>(entity =>

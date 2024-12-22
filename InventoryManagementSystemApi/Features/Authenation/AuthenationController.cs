@@ -1,4 +1,6 @@
-﻿namespace InventoryManagementSystemApi.Features.Authenation;
+﻿using InventoryManagementSystemApi.Modles.Setup.Authenation;
+
+namespace InventoryManagementSystemApi.Features.Authenation;
 
 [Route("api/authenation")]
 [ApiController]
@@ -40,7 +42,6 @@ public class AuthenationController : ControllerBase
     }
 
     [HttpPost("/register")]
-
     public async Task<IActionResult> Register(RegisterRequestModel reqModel)
     {
         try

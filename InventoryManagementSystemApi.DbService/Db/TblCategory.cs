@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace InventoryManagementSystemApi.DbService.Db;
 
-namespace InventoryManagementSystemApi.DbService.Db;
-
-public partial class TblCategory
+public class TblCategory
 {
     public string CategoryId { get; set; } = null!;
 
