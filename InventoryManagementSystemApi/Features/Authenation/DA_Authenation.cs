@@ -47,7 +47,7 @@ public class DA_Authenation
                 IsDeleted = 0
             };
 
-            newUser.HashPassword = pasword.ToSHA256HexHashString(newUser.UsereId);
+            newUser.HashPassword = pasword.ToSHA256HexHashString(newUser.UserName);
 
             _db.TblUsers.Add(newUser);
             await _db.SaveChangesAsync();
@@ -67,17 +67,17 @@ public class DA_Authenation
     {
         Result<SignInResponseModel> model;
         var item = await _db.TblUsers
-            .AsNoTracking()
-            .Where(x => x.UserName == reqModel.UserName)
-            .FirstOrDefaultAsync();
+                        .AsNoTracking()
+                        .Where(x => x.UserName == reqModel.UserName)
+                        .FirstOrDefaultAsync();
 
         if (item is null)
-        {
-            model = Result<SignInResponseModel>.FailureResult("Login Failed.");
+        { 
+            model = Result<SignInResponseModel>.FailureResult("user doesn't exist.");
             goto Result;
         }
 
-        var hashPass = reqModel.HashPassword.ToSHA256HexHashString(item.UsereId);
+        var hashPass = reqModel.HashPassword.ToSHA256HexHashString(item.UserName);
 
         if (item.HashPassword != hashPass)
         {
@@ -88,10 +88,9 @@ public class DA_Authenation
         var tokenRequestModel = new AccessTokenRequestModel
         {
             UserName = item.UserName,
-            UserPassword = item.HashPassword
         };
         var accessToken = _jwtTokenService
-            .GenerateJwtToken(reqModel.UserName, reqModel.HashPassword);
+            .GenerateJwtToken(tokenRequestModel);
 
         await SaveLogin(item, accessToken);
 

@@ -1,41 +1,45 @@
-﻿namespace InventoryManagementSystemApi.Shared.Service;
+﻿using InventoryManagementSystemApi.Modles.Setup.Token;
+
+namespace InventoryManagementSystemApi.Shared.Service;
 
 public class JwtTokenService
 {
     private readonly IConfiguration _configuration;
     private readonly JwtSecurityTokenHandler _tokenHandler;
 
-    public JwtTokenService(IConfiguration configuration,
+    public JwtTokenService(
+        IConfiguration configuration,
         JwtSecurityTokenHandler tokenHandler)
     {
         _configuration = configuration;
         _tokenHandler = tokenHandler;
     }
 
-    public string GenerateJwtToken(string userName, string password)
+    public string GenerateJwtToken(AccessTokenRequestModel requestModel)
     {
-        //var key = Encoding.ASCII.GetBytes(_configuration["Jwt:SecretKey"]);
-        var key = Encoding.ASCII.GetBytes("your_very_long_secret_key_1234567890");
-        var tokenDescriptor = new SecurityTokenDescriptor
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+        var claims = new[]
         {
-            Subject = new ClaimsIdentity(new[]
-            {
-                new Claim(ClaimTypes.Name, userName),
-                new Claim(ClaimTypes.Email, password)
-            }),
-            Expires = DevCode.GetServerDateTime().AddHours(1),
-            SigningCredentials =
-                new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            new Claim(ClaimTypes.Name, requestModel.UserName),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
+        
+        var token = new JwtSecurityToken(
+            issuer: _configuration["Jwt:Issuer"],
+            audience: _configuration["Jwt:Audience"],
+            claims: claims,
+            expires: DateTime.Now.AddMinutes(30),
+            signingCredentials: credentials
+        );
 
-        var token = _tokenHandler.CreateToken(tokenDescriptor);
-        return _tokenHandler.WriteToken(token);
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
-
 
     public ClaimsPrincipal ReadJwtToken(string token)
     {
-        var key = Encoding.ASCII.GetBytes("your_very_long_secret_key_1234567890");
+        var key = (Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
         var tokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = false,
